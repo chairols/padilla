@@ -20,5 +20,5 @@
         <input type="text" maxlength="100" class="form-control" name="telefono">
     </div>
     
-    <button type="submit" class="btn btn-default">Agregar</button>
+    <button type="submit" class="btn btn-primary">Agregar</button>
 </form>

@@ -4,7 +4,9 @@ class Sucursales extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library(array(
-            'form_validation'
+            'form_validation',
+            'session',
+            'r_session'
         ));
         $this->load->model(array(
             'sucursales_model'
@@ -14,7 +16,23 @@ class Sucursales extends CI_Controller {
         ));
     }
     
+    public function index() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        
+        $data['session'] = $session;
+        $data['sucursales'] = $this->sucursales_model->gets();
+        
+        $this->load->view('layout/header', $data);
+        $this->load->view('sucursales/index', $data);
+        $this->load->view('layout/footer');
+    }
+    
     public function agregar() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        
+        $data['session'] = $session;
         
         $this->form_validation->set_rules('sucursal', 'Sucursal', 'required');
         $this->form_validation->set_rules('direccion', 'Dirección', 'required');
@@ -36,7 +54,7 @@ class Sucursales extends CI_Controller {
            redirect('/sucursales/', 'refresh');
         }
         
-        $this->load->view('layout/header');
+        $this->load->view('layout/header', $data);
         $this->load->view('sucursales/agregar');
         $this->load->view('layout/footer');
     }
