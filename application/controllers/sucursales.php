@@ -17,12 +17,18 @@ class Sucursales extends CI_Controller {
     public function agregar() {
         
         $this->form_validation->set_rules('sucursal', 'Sucursal', 'required');
+        $this->form_validation->set_rules('direccion', 'Dirección', 'required');
+        $this->form_validation->set_rules('localidad', 'Localidad', 'required');
+        $this->form_validation->set_rules('telefono', 'Teléfono', 'required');
         
         if($this->form_validation->run() == FALSE) {
             
         } else {
             $datos = array(
-                'sucursal' => $this->input->post('sucursal')
+                'sucursal' => $this->input->post('sucursal'),
+                'direccion' => $this->input->post('direccion'),
+                'localidad' => $this->input->post('localidad'),
+                'telefono' => $this->input->post('telefono')
             );
             
            $this->sucursales_model->set($datos); 
