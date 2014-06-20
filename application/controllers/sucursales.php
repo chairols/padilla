@@ -33,6 +33,7 @@ class Sucursales extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['alerta'] = '';  // Se utiliza si existe la sucursal repetida
         
         $this->form_validation->set_rules('sucursal', 'Sucursal', 'required');
         $this->form_validation->set_rules('direccion', 'Dirección', 'required');
@@ -43,15 +44,24 @@ class Sucursales extends CI_Controller {
             
         } else {
             $datos = array(
-                'sucursal' => $this->input->post('sucursal'),
-                'direccion' => $this->input->post('direccion'),
-                'localidad' => $this->input->post('localidad'),
-                'telefono' => $this->input->post('telefono')
+                'sucursal' => $this->input->post('sucursal')
             );
-            
-           $this->sucursales_model->set($datos); 
-           
-           redirect('/sucursales/', 'refresh');
+            $resultado = $this->sucursales_model->get_where($datos);
+                    
+            if(count($resultado) == 0) {
+                $datos = array(
+                    'sucursal' => $this->input->post('sucursal'),
+                    'direccion' => $this->input->post('direccion'),
+                    'localidad' => $this->input->post('localidad'),
+                    'telefono' => $this->input->post('telefono')
+                );
+
+               $this->sucursales_model->set($datos); 
+
+               redirect('/sucursales/', 'refresh');
+            } else {
+                $data['alerta'] = '<div class="alert alert-danger">La sucursal ya existe</div>';
+            }
         }
         
         $this->load->view('layout/header', $data);

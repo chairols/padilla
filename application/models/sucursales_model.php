@@ -17,5 +17,11 @@ class Sucursales_model extends CI_Model {
                                         idsucursal");
         return $query->result_array();
     }
+    
+    public function get_where($where) {
+        $query = $this->db->get_where('sucursales', $where);
+        
+        return $query->row_array();
+    }
 }
 ?>
