@@ -26,8 +26,42 @@ class Productos extends CI_Controller {
         
         $this->load->view('layout/header', $data);
         $this->load->view('productos/index');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer');   
+    }
+    
+    public function agregar() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
         
+        $data['session'] = $session;
+        $data['alerta'] = '';  // Se utiliza si existe la sucursal repetida
+        
+        $this->form_validation->set_rules('producto', 'Producto', 'required');
+        
+        if($this->form_validation->run() == FALSE) {
+            
+        } else {
+            $datos = array(
+                'producto' => $this->input->post('producto')
+            );
+            $resultado = $this->productos_model->get_where($datos);
+                    
+            if(count($resultado) == 0) {
+                $datos = array(
+                    'producto' => $this->input->post('producto')
+                );
+
+               $this->productos_model->set($datos); 
+
+               redirect('/productos/', 'refresh');
+            } else {
+                $data['alerta'] = '<div class="alert alert-danger">El producto ya existe</div>';
+            }
+        }
+        
+        $this->load->view('layout/header', $data);
+        $this->load->view('productos/agregar');
+        $this->load->view('layout/footer');
     }
 }
 
