@@ -35,6 +35,8 @@
                                 Maestros <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="/articulos/">Artículos</a></li>
+                                <li><a href="/productos/">Productos</a></li>
                                 <li><a href="/sucursales/">Sucursales</a></li>
                             </ul>
                         </div>
