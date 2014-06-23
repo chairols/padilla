@@ -32,6 +32,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/articulos/">Artículos</a></li>
+                                <li><a href="/insumos/">Insumos</a></li>
                                 <li><a href="/productos/">Productos</a></li>
                                 <li><a href="/proveedores/">Proveedores</a></li>
                                 <li><a href="/sucursales/">Sucursales</a></li>
