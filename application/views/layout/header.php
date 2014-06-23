@@ -35,6 +35,7 @@
                                 <li><a href="/insumos/">Insumos</a></li>
                                 <li><a href="/productos/">Productos</a></li>
                                 <li><a href="/proveedores/">Proveedores</a></li>
+                                <li><a href="/provincias/">Provincias</a></li>
                                 <li><a href="/sucursales/">Sucursales</a></li>
                             </ul>
                         </li>
