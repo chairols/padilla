@@ -19,5 +19,14 @@ class Usuarios_model extends CI_Model {
                                         password = '$password'");
         return $query->row_array();
     }
+    
+    public function get($idusuario) {
+        $query = $this->db->query("SELECT *
+                                    FROM
+                                        usuarios
+                                    WHERE
+                                        idusuario = '$idusuario'");
+        return $query->row_array();
+    }
 }
 ?>

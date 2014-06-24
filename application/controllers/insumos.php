@@ -12,7 +12,8 @@ class Insumos extends CI_Controller {
             'url'
         ));
         $this->load->model(array(
-            'insumos_model'
+            'insumos_model',
+            'log_model'
         ));
     }
     
@@ -50,8 +51,17 @@ class Insumos extends CI_Controller {
                     'insumo' => $this->input->post('insumo')
                 );
 
-               $this->insumos_model->set($datos); 
+               $id = $this->insumos_model->set($datos); 
 
+               $log = array(
+                   'tabla' => 'insumos',
+                   'idtabla' => $id,
+                   'texto' => 'Se agregó el insumo '.$this->input->post('insumo'),
+                   'tipo' => 'add',
+                   'idusuario' => $session['SID']
+               );
+               $this->log_model->set($log);
+               
                redirect('/insumos/', 'refresh');
             } else {
                 $data['alerta'] = '<div class="alert alert-danger">El insumo ya existe</div>';

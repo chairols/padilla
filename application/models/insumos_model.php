@@ -7,6 +7,7 @@ class Insumos_model extends CI_Model {
     
     public function set($datos) {
         $this->db->insert('insumos', $datos);
+        return $this->db->insert_id();
     }
     
     public function gets() {

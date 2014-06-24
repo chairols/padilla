@@ -13,7 +13,8 @@ class Articulos extends CI_Controller {
         ));
         $this->load->model(array(
             'articulos_model',
-            'productos_model'
+            'productos_model',
+            'log_model'
         ));
     }
     
@@ -77,7 +78,24 @@ class Articulos extends CI_Controller {
                     $datos['planofile'] = '/upload/'.$adjunto['upload_data']['file_name'];
                 }
                         
-                $this->articulos_model->set($datos);
+                $id = $this->articulos_model->set($datos);
+                
+                $log = array(
+                   'tabla' => 'articulos',
+                   'idtabla' => $id,
+                   'texto' => 'Se agregó: <br>'
+                    . 'articulo: '.$this->input->post('articulo').'<br>'
+                    . 'plano: '.$this->input->post('plano').'<br>'
+                    . 'idplano: '.$this->input->post('idplano').'<br>'
+                    . 'revision: '.$this->input->post('revision').'<br>'
+                    . 'posicion: '.$this->input->post('posicion').'<br>'
+                    . 'observaciones: '.$this->input->post('observaciones').'<br>'
+                    . 'adjunto: '.$adjunto,
+                   'tipo' => 'add',
+                   'idusuario' => $session['SID']
+               );
+                
+                $this->log_model->set($log);
                 
                 redirect('/articulos/', 'refresh');
             }

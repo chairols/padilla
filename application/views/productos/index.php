@@ -3,19 +3,25 @@
     <li><a href="/productos/agregar/">Agregar producto</a></li>
 </ul>
 
-<div class="block-flat">
-    <table class="table table-responsive table-hover table-striped">
-        <thead>
+<div class="table-responsive block-flat">
+    <table class="table no-border hover">
+        <thead class="no-border">
             <tr>
-                <th>ID</th>
-                <th>Producto</th>
+                <th><strong>ID</strong></th>
+                <th><strong>Producto</strong></th>
+                <th><strong>Acción</strong></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="no-border-y">
             <?php foreach($productos as $producto) { ?>
             <tr>
                 <td><?=$producto['idproducto']?></td>
                 <td><?=$producto['producto']?></td>
+                <td>
+                    <a href="#" class="label label-default"><i class="fa fa-pencil"></i></a> 
+                    <a href="#" class="label label-danger"><i class="fa fa-times"></i></a>
+                    <a href="/log/ver/productos/<?=$producto['idproducto']?>/" class="label label-info"><i class="fa fa-clock-o"></i></a>
+                </td>
             </tr>
             <?php } ?>
         </tbody>

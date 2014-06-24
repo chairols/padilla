@@ -12,7 +12,8 @@ class Provincias extends CI_Controller {
             'url'
         ));
         $this->load->model(array(
-            'provincias_model'
+            'provincias_model',
+            'log_model'
         ));
     }
     
@@ -51,7 +52,16 @@ class Provincias extends CI_Controller {
                     'provincia' => $this->input->post('provincia')
                 );
 
-               $this->provincias_model->set($datos); 
+               $id = $this->provincias_model->set($datos); 
+               
+               $log = array(
+                   'tabla' => 'provincias',
+                   'idtabla' => $id,
+                   'texto' => 'Se agregó la provincia '.$this->input->post('provincia'),
+                   'tipo' => 'add',
+                   'idusuario' => $session['SID']
+               );
+               $this->log_model->set($log);
 
                redirect('/provincias/', 'refresh');
             } else {

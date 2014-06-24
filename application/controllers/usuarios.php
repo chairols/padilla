@@ -32,7 +32,7 @@ class Usuarios extends CI_Controller {
                     'correo' => $usuario['correo']
                 );
                 $this->session->set_userdata($datos);
-                redirect('/home/', 'refresh');
+                redirect('/dashboard/', 'refresh');
             }
         }
         
@@ -51,4 +51,3 @@ class Usuarios extends CI_Controller {
 }
 
 ?>
-

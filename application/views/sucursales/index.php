@@ -3,19 +3,24 @@
     <li><a href="/sucursales/agregar/">Agregar sucursal</a></li>
 </ul>
 
-<div class="block-flat">
-    <table class="table table-responsive table-hover table-striped">
-        <thead>
+<div class="table-responsive block-flat">
+    <table class="table no-border hover">
+        <thead class="no-border">
             <tr>
-                <th>ID</th>
-                <th>Sucursal</th>
+                <th><strong>ID</strong></th>
+                <th><strong>Sucursal</strong></th>
+                <th><strong>Acción</strong></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="no-border-y">
             <?php foreach($sucursales as $sucursal) { ?>
             <tr>
                 <td><?=$sucursal['idsucursal']?></td>
                 <td><?=$sucursal['sucursal']?></td>
+                <td>
+                    <a href="#" class="label label-default"><i class="fa fa-pencil"></i></a> 
+                    <a href="#" class="label label-danger"><i class="fa fa-times"></i></a>
+                </td>
             </tr>
             <?php } ?>
         </tbody>

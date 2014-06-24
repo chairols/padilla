@@ -7,6 +7,7 @@ class Articulos_model extends CI_Model {
     
     public function set($datos) {
         $this->db->insert('articulos', $datos);
+        return $this->db->insert_id();
     }
     
     public function gets() {

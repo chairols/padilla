@@ -7,6 +7,7 @@ class Provincias_model extends CI_Model {
     
     public function set($datos) {
         $this->db->insert('provincias', $datos);
+        return $this->db->insert_id();
     }
     
     public function gets() {
