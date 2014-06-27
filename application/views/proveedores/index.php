@@ -4,15 +4,15 @@
 </ul>
 
 <div class="table-responsive block-flat">
-    <table class="table no-border hover">
-        <thead class="no-border">
+    <table id="datatable">
+        <thead>
             <tr>
                 <th><strong>ID</strong></th>
                 <th><strong>Proveedor</strong></th>
                 <th><strong>Acción</strong></th>
             </tr>
         </thead>
-        <tbody class="no-border-y">
+        <tbody>
             <?php foreach($proveedores as $proveedor) { ?>
             <tr>
                 <td><?=$proveedor['idproveedor']?></td>

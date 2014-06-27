@@ -13,7 +13,8 @@ class Proveedores extends CI_Controller {
         ));
         $this->load->model(array(
             'proveedores_model',
-            'provincias_model'
+            'provincias_model',
+            'log_model'
         ));
     }
     
@@ -24,9 +25,10 @@ class Proveedores extends CI_Controller {
         $data['session'] = $session;
         $data['proveedores'] = $this->proveedores_model->gets();
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
         $this->load->view('proveedores/index');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer_datatable');
     }
     
     public function agregar() {
@@ -49,20 +51,44 @@ class Proveedores extends CI_Controller {
                     
             if(count($resultado) == 0) {
                 $datos = array(
-                    'proveedor' => $this->input->post('proveedor')
+                    'proveedor' => $this->input->post('proveedor'),
+                    'domicilio' => $this->input->post('domicilio'),
+                    'telefono' => $this->input->post('telefono'),
+                    'localidad' => $this->input->post('localidad'),
+                    'idprovincia' => $this->input->post('provincia'),
+                    'contacto' => $this->input->post('contacto'),
+                    'observaciones' => $this->input->post('observaciones')
                 );
 
-               $this->proveedores_model->set($datos); 
-
+               $id = $this->proveedores_model->set($datos); 
+               
+               $provincia = $this->provincias_model->get_where(array('idprovincia' => $this->input->post('provincia')));
+               
+               $log = array(
+                   'tabla' => 'proveedores',
+                   'idtabla' => $id,
+                   'texto' => 'Se agregó el proveedor '.$this->input->post('proveedor').'<br>'
+                   . 'domicilio: '.$this->input->post('domicilio').'<br>'
+                   . 'telefono: '.$this->input->post('telefono').'<br>'
+                   . 'localidad: '.$this->input->post('localidad').'<br>'
+                   . 'provincia: '.$provincia['provincia'].'<br>'
+                   . 'contacto: '.$this->input->post('contacto').'<br>'
+                   . 'observaciones: '.$this->input->post('observaciones'),
+                   'tipo' => 'add',
+                   'idusuario' => $session['SID']
+               );
+               $this->log_model->set($log);
+               
                redirect('/proveedores/', 'refresh');
             } else {
                 $data['alerta'] = '<div class="alert alert-danger">El proveedor ya existe</div>';
             }
         }
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
         $this->load->view('proveedores/agregar');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer_form');
     }
 }
 ?>

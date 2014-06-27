@@ -1,19 +1,24 @@
 <ul class="nav nav-tabs nav-tabs-justified">
     <li class="active"><a href="/provincias/">Listar provincias</a></li>
     <li><a href="/provincias/agregar/">Agregar provincia</a></li>
+    <li><a href="/provincias/modificar/">Modificar provincia</a></li>
+    <li><a href="/provincias/borradas/">Provincias borradas</a></li>
 </ul>
+<div class="block-flat">
 
-<div class="table-responsive block-flat">
-    <table class="table no-border hover">
-        <thead class="no-border">
+    <table id="datatable" class="display table-hover" cellspacing="0" width="100%">
+        <thead>
             <tr>
                 <th><strong>ID</strong></th>
-                <th><strong>Provincia</strong></th>
+                <th><strong>Provincias</strong></th>
                 <th><strong>Acción</strong></th>
             </tr>
         </thead>
-        <tbody class="no-border-y">
-            <?php foreach($provincias as $provincia) { ?>
+ 
+        
+        
+        <tbody>
+        <?php foreach($provincias as $provincia) { ?>
             <tr>
                 <td><?=$provincia['idprovincia']?></td>
                 <td><?=$provincia['provincia']?></td>
@@ -23,7 +28,10 @@
                     <a href="/log/ver/provincias/<?=$provincia['idprovincia']?>/" class="label label-info"><i class="fa fa-clock-o"></i></a>
                 </td>
             </tr>
-            <?php } ?>
+        <?php } ?>
         </tbody>
+        
+        
     </table>
+
 </div>

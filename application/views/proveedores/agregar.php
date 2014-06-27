@@ -32,7 +32,7 @@
 
         <div class="form-group">
             <label>Provincia</label>
-            <select name="provincia" class="form-control">
+            <select name="provincia" class="select2">
                 <?php foreach($provincias as $provincia) { ?>
                 <option value="<?=$provincia['idprovincia']?>"><?=$provincia['provincia']?></option>
                 <?php } ?>

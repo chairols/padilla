@@ -14,6 +14,8 @@ class Provincias_model extends CI_Model {
         $query = $this->db->query("SELECT *
                                     FROM
                                         provincias
+                                    WHERE
+                                        activo = '1'
                                     ORDER BY
                                         provincia");
         return $query->result_array();

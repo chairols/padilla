@@ -1,6 +1,6 @@
 <?php
 
-class Sucursales extends CI_Controller {
+class Fabricas extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library(array(
@@ -9,7 +9,7 @@ class Sucursales extends CI_Controller {
             'r_session'
         ));
         $this->load->model(array(
-            'sucursales_model'
+            'fabricas_model'
         ));
         $this->load->helper(array(
             'url'
@@ -21,11 +21,12 @@ class Sucursales extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
-        $data['sucursales'] = $this->sucursales_model->gets();
+        $data['fabricas'] = $this->fabricas_model->gets();
         
-        $this->load->view('layout/header', $data);
-        $this->load->view('sucursales/index', $data);
-        $this->load->view('layout/footer');
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('fabricas/index', $data);
+        $this->load->view('layout/footer_datatable');
     }
     
     public function agregar() {
@@ -33,9 +34,9 @@ class Sucursales extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
-        $data['alerta'] = '';  // Se utiliza si existe la sucursal repetida
+        $data['alerta'] = '';  // Se utiliza si existe la fábrica repetida
         
-        $this->form_validation->set_rules('sucursal', 'Sucursal', 'required');
+        $this->form_validation->set_rules('fabrica', 'Fábrica', 'required');
         $this->form_validation->set_rules('direccion', 'Dirección', 'required');
         $this->form_validation->set_rules('localidad', 'Localidad', 'required');
         $this->form_validation->set_rules('telefono', 'Teléfono', 'required');
@@ -44,28 +45,28 @@ class Sucursales extends CI_Controller {
             
         } else {
             $datos = array(
-                'sucursal' => $this->input->post('sucursal')
+                'fabrica' => $this->input->post('fabrica')
             );
-            $resultado = $this->sucursales_model->get_where($datos);
+            $resultado = $this->fabricas_model->get_where($datos);
                     
             if(count($resultado) == 0) {
                 $datos = array(
-                    'sucursal' => $this->input->post('sucursal'),
+                    'fabrica' => $this->input->post('fabrica'),
                     'direccion' => $this->input->post('direccion'),
                     'localidad' => $this->input->post('localidad'),
                     'telefono' => $this->input->post('telefono')
                 );
 
-               $this->sucursales_model->set($datos); 
+               $this->fabricas_model->set($datos); 
 
-               redirect('/sucursales/', 'refresh');
+               redirect('/fabricas/', 'refresh');
             } else {
-                $data['alerta'] = '<div class="alert alert-danger">La sucursal ya existe</div>';
+                $data['alerta'] = '<div class="alert alert-danger">La fábrica ya existe</div>';
             }
         }
         
         $this->load->view('layout/header', $data);
-        $this->load->view('sucursales/agregar');
+        $this->load->view('fabricas/agregar');
         $this->load->view('layout/footer');
     }
 }

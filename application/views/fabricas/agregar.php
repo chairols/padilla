@@ -1,14 +1,14 @@
 <ul class="nav nav-tabs nav-tabs-justified">
-    <li><a href="/sucursales/">Listar sucursales</a></li>
-    <li class="active"><a href="/sucursales/agregar/">Agregar sucursal</a></li>
+    <li><a href="/fabricas/">Listar fábricas</a></li>
+    <li class="active"><a href="/fabricas/agregar/">Agregar fábrica</a></li>
 </ul>
 
 <div class="block-flat">
     <form role="form" method="post">
         <div class="form-group">
             <label>Nombre</label>
-            <input type="text" maxlength="100" class="form-control" value="<?=set_value('sucursal')?>" name="sucursal" autofocus>
-            <?=form_error('sucursal', '<div class="alert alert-danger">', '</div>')?>
+            <input type="text" maxlength="100" class="form-control" value="<?=set_value('fabrica')?>" name="fabrica" autofocus>
+            <?=form_error('fabrica', '<div class="alert alert-danger">', '</div>')?>
             <?=$alerta?>
         </div>
 

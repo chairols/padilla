@@ -38,7 +38,7 @@ class Usuarios extends CI_Controller {
         
         $session = $this->session->all_userdata();
         if(!empty($session['SID'])) {
-            redirect('/home/', 'refresh');
+            redirect('/dashboard/', 'refresh');
         } else {
             $this->load->view('usuarios/login');
         }

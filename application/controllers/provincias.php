@@ -25,9 +25,10 @@ class Provincias extends CI_Controller {
         
         $data['provincias'] = $this->provincias_model->gets();
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
         $this->load->view('provincias/index');
-        $this->load->view('layout/footer');   
+        $this->load->view('layout/footer_datatable');   
     }
     
     public function agregar() {

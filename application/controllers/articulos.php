@@ -25,9 +25,10 @@ class Articulos extends CI_Controller {
         
         $data['articulos'] = $this->articulos_model->gets();
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
         $this->load->view('articulos/index');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer_datatable');
     }
     
     public function agregar() {
@@ -90,7 +91,7 @@ class Articulos extends CI_Controller {
                     . 'revision: '.$this->input->post('revision').'<br>'
                     . 'posicion: '.$this->input->post('posicion').'<br>'
                     . 'observaciones: '.$this->input->post('observaciones').'<br>'
-                    . 'adjunto: '.$adjunto,
+                    . 'adjunto: '.'/upload/'.$adjunto['upload_data']['file_name'],
                    'tipo' => 'add',
                    'idusuario' => $session['SID']
                );
@@ -101,9 +102,10 @@ class Articulos extends CI_Controller {
             }
         }
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
         $this->load->view('articulos/agregar');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer_form');
     }
 }
 

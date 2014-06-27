@@ -1,25 +1,25 @@
 <?php
 
-class Sucursales_model extends CI_Model {
+class Fabricas_model extends CI_Model {
     public function __construct() {
         $this->load->database();
     }
     
     public function set($datos) {
-        $this->db->insert('sucursales', $datos);
+        $this->db->insert('fabricas', $datos);
     }
     
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
-                                        sucursales
+                                        fabricas
                                     ORDER BY
-                                        idsucursal");
+                                        idfabrica");
         return $query->result_array();
     }
     
     public function get_where($where) {
-        $query = $this->db->get_where('sucursales', $where);
+        $query = $this->db->get_where('fabricas', $where);
         
         return $query->row_array();
     }

@@ -24,9 +24,10 @@ class Productos extends CI_Controller {
         
         $data['productos'] = $this->productos_model->gets();
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
         $this->load->view('productos/index');
-        $this->load->view('layout/footer');   
+        $this->load->view('layout/footer_datatable');   
     }
     
     public function agregar() {

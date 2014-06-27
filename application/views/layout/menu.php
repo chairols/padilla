@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-        
-        <title></title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
-        
-        <link href="/assets/flatdream/js/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/jquery.gritter/css/jquery.gritter.css" />
-        <link rel="stylesheet" href="/assets/flatdream/fonts/font-awesome-4/css/font-awesome.min.css">
-        
-        <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/jquery.nanoscroller/nanoscroller.css" />
-
-        <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/jquery.codemirror/lib/codemirror.css">
-        <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/jquery.codemirror/theme/ambiance.css">
-        <link rel="stylesheet" href="/assets/flatdream/js/jquery.vectormaps/jquery-jvectormap-1.2.2.css" type="text/css" media="screen"/>  
-        
-        <link href="/assets/flatdream/css/style.css" rel="stylesheet" />	
-    </head>
-    
     <body>
         <div class="cl-wrapper">
             <div class="cl-sidebar">

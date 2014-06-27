@@ -4,8 +4,8 @@
 </ul>
 
 <div class="table-responsive block-flat">
-    <table class="table no-border hover">
-        <thead class="no-border">
+    <table id="datatable">
+        <thead>
             <tr>
                 <th><strong>ID</strong></th>
                 <th><strong>Artículo</strong></th>
@@ -14,7 +14,7 @@
                 <th><strong>Acción</strong></th>
             </tr>
         </thead>
-        <tbody class="no-border-y">
+        <tbody>
             <?php foreach($articulos as $articulo) { ?>
             <tr>
                 <td><?=$articulo['idarticulo']?></td>

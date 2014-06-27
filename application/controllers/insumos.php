@@ -24,9 +24,10 @@ class Insumos extends CI_Controller {
         
         $data['insumos'] = $this->insumos_model->gets();
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
         $this->load->view('insumos/index');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer_datatable');
     }
     
      public function agregar() {

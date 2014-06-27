@@ -3,14 +3,24 @@
 class Prueba extends CI_Controller {
     public function __construct() {
         parent::__construct();
+        $this->load->library(array(
+            'form_validation'
+        ));
+        $this->load->helper(array(
+            'url'
+        ));
     }
     
     public function index() {
-
-        $this->load->view('layout2/header');
-        $this->load->view('layout2/container');
-        $this->load->view('layout2/footer');
-         
+        $data['session']['nombre'] = 'Juan';
+        $data['session']['apellido'] = 'Perez';
+        $data['alerta'] = '';
+        
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
+        //$this->load->view('provincias/agregar');
+        $this->load->view('prueba/index');
+        $this->load->view('layout/footer_form');
     }
 }
 ?>
