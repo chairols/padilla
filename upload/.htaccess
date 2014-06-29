@@ -1,4 +1,0 @@
-AuthUserFile /upload/.htpasswd
-AuthName "Introduzca su usuario y clave de acceso"
-AuthType Basic
-require valid-user
