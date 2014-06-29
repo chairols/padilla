@@ -25,6 +25,8 @@
 
   <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/bootstrap.switch/bootstrap-switch.css" />
 <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="/assets/datepicker/css/datepicker.css" />
+
 <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/jquery.select2/select2.css" />
 <link rel="stylesheet" type="text/css" href="/assets/flatdream/js/bootstrap.slider/css/slider.css" />
 <link href="/assets/flatdream/js/jquery.icheck/skins/flat/green.css" rel="stylesheet">  

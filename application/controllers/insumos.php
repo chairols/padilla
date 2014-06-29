@@ -69,9 +69,10 @@ class Insumos extends CI_Controller {
             }
         }
         
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
         $this->load->view('insumos/agregar');
-        $this->load->view('layout/footer');
+        $this->load->view('layout/footer_form');
     }
 }
 

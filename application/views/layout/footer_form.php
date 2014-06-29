@@ -9,6 +9,7 @@
     
   <script type="text/javascript" src="/assets/flatdream/js/bootstrap.switch/bootstrap-switch.min.js"></script>
 <script type="text/javascript" src="/assets/flatdream/js/bootstrap.datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/assets/datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/assets/flatdream/js/jquery.select2/select2.min.js" ></script>
 <script type="text/javascript" src="/assets/flatdream/js/bootstrap.slider/js/bootstrap-slider.js" ></script>
 <script type="text/javascript" src="/assets/flatdream/js/jquery.icheck/icheck.min.js"></script>
@@ -20,6 +21,14 @@
       
       /*DateTime Picker*/
         $(".datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+      
+      $("#necesidad").datepicker({
+          format: 'yyyy-mm-dd'
+      });
+      
+      $("#terminado").datepicker({
+          format: 'yyyy-mm-dd'
+      });
       
       /*Select2*/
         $(".select2").select2({
@@ -37,6 +46,8 @@
           checkboxClass: 'icheckbox_flat-green',
           radioClass: 'iradio_flat-green'
         });
+        
+        inicio();
     });
 </script>
   

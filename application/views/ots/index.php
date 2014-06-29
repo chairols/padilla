@@ -21,7 +21,7 @@
             <tr>
                 <td><?=$ot['idot']?></td>
                 <td><?=$ot['numero_ot']?></td>
-                <td>&nbsp;</td>
+                <td><?=$ot['fabrica']['fabrica']?></td>
             </tr>
         <?php } ?>
         </tbody>

@@ -1,6 +1,9 @@
 <ul class="nav nav-tabs nav-tabs-justified">
     <li><a href="/articulos/">Listar artículos</a></li>
     <li class="active"><a href="/articulos/agregar/">Agregar artículos</a></li>
+    <li><a href="/articulos/modificar/">Modificar artículo</a></li>
+    <li><a href="/articulos/ver/">Ver artículo</a></li>
+    <li><a href="/articulos/borrados/">Artículos borrados</a></li>
 </ul>
 
 <div class="block-flat">

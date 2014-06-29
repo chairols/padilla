@@ -24,6 +24,9 @@ class Articulos extends CI_Controller {
         $data['session'] = $session;
         
         $data['articulos'] = $this->articulos_model->gets();
+        foreach ($data['articulos'] as $key => $value) {
+            $data['articulos'][$key]['producto'] = $this->productos_model->get_where(array('idproducto' => $value['idproducto']));
+        }
         
         $this->load->view('layout/header_datatable', $data);
         $this->load->view('layout/menu');
@@ -106,6 +109,46 @@ class Articulos extends CI_Controller {
         $this->load->view('layout/menu');
         $this->load->view('articulos/agregar');
         $this->load->view('layout/footer_form');
+    }
+    
+    public function borrados() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        $data['session'] = $session;
+        
+        $data['articulos'] = $this->articulos_model->gets_inactivos();
+        
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('articulos/borrados');
+        $this->load->view('layout/footer_datatable');
+    }
+    
+    public function borrar($idarticulo = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        
+        if($idarticulo == null) {
+            redirect('/articulos/', 'refresh');
+        }
+        
+        $datos = array(
+            'activo' => 0
+        );
+        
+        $this->articulos_model->update($datos, $idarticulo);
+        
+        $log = array(
+                   'tabla' => 'articulos',
+                   'idtabla' => $idarticulo,
+                   'texto' => 'Se borró el artículo',
+                   'tipo' => 'del',
+                   'idusuario' => $session['SID']
+               );
+                
+                $this->log_model->set($log);
+        
+        redirect('/articulos/borrados/', 'refresh');
     }
 }
 

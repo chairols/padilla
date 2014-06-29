@@ -10,6 +10,9 @@ class Dashboard extends CI_Controller {
         $this->load->helper(array(
             'url'
         ));
+        $this->load->model(array(
+            'ots_model'
+        ));
     }
     
     public function index() {
@@ -17,8 +20,13 @@ class Dashboard extends CI_Controller {
         $this->r_session->check($session);
         $data['session'] = $session;
         
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/footer');
+        $data['ots_pendientes'] = $this->ots_model->gets_where(array('fecha_terminado' => null));
+        
+        
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('dashboard/index');
+        $this->load->view('layout/footer_form');
     }
 }
 
