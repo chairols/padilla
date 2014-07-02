@@ -25,8 +25,7 @@
                 <td><?=$articulo['revision']?></td>
                 <td><?=$articulo['posicion']?></td>
                 <td>
-                    <a href="#" class="label label-default"><i class="fa fa-pencil"></i></a> 
-                    <a href="#" class="label label-danger"><i class="fa fa-times"></i></a>
+                    <a href="/articulos/ver/<?=$articulo['idarticulo']?>" class="label label-success"><i class="fa fa-eye"></i></a>
                     <a href="/log/ver/articulos/<?=$articulo['idarticulo']?>/" class="label label-info"><i class="fa fa-clock-o"></i></a>
                 </td>
             </tr>

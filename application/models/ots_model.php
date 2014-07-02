@@ -14,6 +14,20 @@ class Ots_model extends CI_Model {
         $query = $this->db->query("SELECT *
                                     FROM
                                         ots
+                                    WHERE
+                                        activo = '1'
+                                    ORDER BY
+                                        numero_ot DESC");
+        return $query->result_array();
+    }
+    
+    public function gets_pendientes() {
+        $query = $this->db->query("SELECT *
+                                    FROM
+                                        ots
+                                    WHERE
+                                        activo = '1' AND
+                                        fecha_terminado <> 'NULL'
                                     ORDER BY
                                         numero_ot DESC");
         return $query->result_array();

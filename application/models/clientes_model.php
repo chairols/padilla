@@ -1,26 +1,26 @@
 <?php
 
-class Proveedores_model extends CI_Model {
+class Clientes_model extends CI_Model {
     public function __construct() {
         $this->load->database();
     }
     
     public function set($datos) {
-        $this->db->insert('proveedores', $datos);
+        $this->db->insert('clientes', $datos);
         return $this->db->insert_id();
     }
     
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
-                                        proveedores
+                                        clientes
                                     ORDER BY
-                                        proveedor");
+                                        cliente");
         return $query->result_array();
     }
     
     public function get_where($where) {
-        $query = $this->db->get_where('proveedores', $where);
+        $query = $this->db->get_where('clientes', $where);
         
         return $query->row_array();
     }

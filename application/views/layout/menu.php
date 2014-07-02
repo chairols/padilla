@@ -18,6 +18,7 @@
                             <li><a href="#"><i class="fa fa-file-o"></i> Maestros</a>
                                 <ul class="sub-menu">
                                     <li><a href="/articulos/">Artículos</a></li>
+                                    <li><a href="/clientes/">Clientes</a></li>
                                     <li><a href="/fabricas/">Fábricas</a></li>
                                     <li><a href="/insumos/">Insumos</a></li>
                                     <li><a href="/monedas/">Monedas</a></li>
@@ -51,7 +52,7 @@
                                 <li class="dropdown profile_menu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$session['nombre']?> <?=$session['apellido']?></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Perfil</a></li>
+                                        <li><a href="/usuarios/perfil/">Perfil</a></li>
                                         <li><a href="/usuarios/logout/">Salir</a></li>
                                     </ul>
                                 </li>

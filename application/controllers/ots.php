@@ -36,6 +36,14 @@ class Ots extends CI_Controller {
         $this->load->view('layout/footer_datatable');
     }
     
+    public function ver($idot = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        if($idot == null) {
+            redirect('/ots/', 'refresh');
+        }
+    }
+    
     public function agregar() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
@@ -71,23 +79,26 @@ class Ots extends CI_Controller {
                     'observaciones' => $this->input->post('observaciones'),
                     
                 );
-                if($this->input->post('fecha_necesidad') != '') {
+                if($this->input->post('fecha_necesidad') == '') {
+                    $datos['fecha_necesidad'] = NULL;
+                } else {
                     $datos['fecha_necesidad'] = $this->input->post('fecha_necesidad');
+                } 
+                
+                if($this->input->post('fecha_necesidad') == '') {
+                    $datos['fecha_terminado'] = NULL;
                 } else {
-                    $datos['fecha_necesidad'] = null;
-                }
-                if($this->input->post('fecha_necesidad') != '') {
                     $datos['fecha_terminado'] = $this->input->post('fecha_terminado');
+                } 
+                
+                if($this->input->post('numero_serie') == '') {
+                    $datos['numero_serie'] = NULL;
                 } else {
-                    $datos['fecha_terminado'] = null;
-                }
-                if($this->input->post('numero_serie') != '') {
                     $datos['numero_serie'] = $this->input->post('numero_serie');
-                } else {
-                    $datos['numero_serie'] = null;
-                }
+                } 
+                
                 if($this->input->post('ordendecompra') == 'null') {
-                    $datos['ordendecompra'] = null;
+                    $datos['ordendecompra'] = NULL;
                 } else {
                     $datos['ordendecompra'] = $this->input->post('ordendecompra');
                 }
@@ -123,6 +134,37 @@ class Ots extends CI_Controller {
         $this->load->view('layout/header_form', $data);
         $this->load->view('layout/menu');
         $this->load->view('ots/agregar');
+        $this->load->view('layout/footer_form');
+    }
+    
+    public function modificar($idot = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        if($idot == null) {
+            redirect('/ots/', 'refresh');
+        }
+        $data['session'] = $session;
+        
+        $data['articulos'] = $this->articulos_model->gets();
+        foreach ($data['articulos'] as $key => $value) {
+            $data['articulos'][$key]['producto'] = $this->productos_model->get_where(array('idproducto' => $value['idproducto']));
+        }
+        $data['fabricas'] = $this->fabricas_model->gets();
+        
+        $this->form_validation->set_rules('fabrica', 'Fabrica', 'required|integer');
+        $this->form_validation->set_rules('ot', 'Orden de Trabajo', 'required|integer');
+        $this->form_validation->set_rules('articulo', 'Articulo', 'required|integer');
+        $this->form_validation->set_rules('cantidad', 'Cantidad', 'required|numeric');
+        
+        if($this->form_validation->run() == FALSE) {
+            
+        } else {
+            
+        }
+        
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('ots/modificar');
         $this->load->view('layout/footer_form');
     }
     

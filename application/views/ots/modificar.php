@@ -22,7 +22,6 @@
             <label>Orden de Trabajo (*)</label>
             <div id="resultado"></div>
             <?=form_error('ot', '<div class="alert alert-danger">', '</div>')?>
-            <?=$alerta?>
         </div>
         
         <div class="form-group">

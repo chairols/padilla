@@ -21,6 +21,7 @@ class Dashboard extends CI_Controller {
         $data['session'] = $session;
         
         $data['ots_pendientes'] = $this->ots_model->gets_where(array('fecha_terminado' => null));
+        $data['ots_cumplidas'] = $this->ots_model->gets_pendientes();
         
         
         $this->load->view('layout/header_form', $data);

@@ -150,6 +150,24 @@ class Articulos extends CI_Controller {
         
         redirect('/articulos/borrados/', 'refresh');
     }
+    
+    public function ver($idarticulo = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        if($idarticulo == null) {
+            redirect('/articulos/', 'refresh');
+        }
+        $data['session'] = $session;
+        
+        $data['articulo'] = $this->articulos_model->get_where(array('idarticulo' => $idarticulo));
+        $data['articulo']['producto'] = $this->productos_model->get_where(array('idproducto' => $data['articulo']['idproducto']));
+
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('articulos/ver');
+        $this->load->view('layout/footer_form');
+        
+    }
 }
 
 ?>

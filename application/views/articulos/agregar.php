@@ -26,7 +26,7 @@
             <input type="file" class="form-control" name="planofile">
         </div>
 
-        <div >
+        <div class="form-group">
             <label>Producto</label>
             <select name="producto" class="select2">
                 <?php foreach($productos as $producto) { ?>

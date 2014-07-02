@@ -22,5 +22,16 @@ class Prueba extends CI_Controller {
         $this->load->view('prueba/index');
         $this->load->view('layout/footer_form');
     }
+    
+    public function nulo() {
+        $this->load->model(array(
+            'prueba_model'
+        ));
+        
+        $array['date'] = null;
+        
+        $this->prueba_model->set($array);
+        
+    }
 }
 ?>

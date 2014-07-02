@@ -19,7 +19,7 @@
 <div class="col-md-3 col-sm-6">
     <div class="fd-tile detail tile-orange">
         <div class="content">
-            <h1 class="text-left">12</h1>
+            <h1 class="text-left">XXX</h1>
             <p>Órdenes de Trabajo a Próximas Vencer</p>
         </div>
         <div class="icon">
@@ -37,7 +37,7 @@
 <div class="col-md-3 col-sm-6">
     <div class="fd-tile detail tile-red">
         <div class="content">
-            <h1 class="text-left">7</h1>
+            <h1 class="text-left">XXX</h1>
             <p>Órdenes de trabajo Vencidas</p>
         </div>
         <div class="icon">
@@ -55,7 +55,7 @@
 <div class="col-md-3 col-sm-6">
     <div class="fd-tile detail tile-lemon">
         <div class="content">
-            <h1 class="text-left">177</h1>
+            <h1 class="text-left"><?=count($ots_cumplidas);?></h1>
             <p>Órdenes de Trabajo Cumplidas</p>
         </div>
         <div class="icon">

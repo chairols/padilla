@@ -5,7 +5,8 @@ class Usuarios extends CI_Controller {
         parent::__construct();
         $this->load->library(array(
             'form_validation',
-            'session'
+            'session',
+            'r_session'
         ));
         $this->load->model(array(
             'usuarios_model'
@@ -48,6 +49,16 @@ class Usuarios extends CI_Controller {
         $this->session->sess_destroy();
         redirect('/usuarios/login/', 'refresh');
     } 
+    
+    public function perfil() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        $data['session'] = $session;
+        
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('layout/footer_form');
+    }
 }
 
 ?>
