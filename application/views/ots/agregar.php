@@ -10,7 +10,7 @@
 <div class="block-flat">
     <form role="form" method="post">
         <div class="form-group">
-            <label>Fábrica (*)</label>
+            <label>Fábrica</label>
             <select name="fabrica" id="fabrica" class="select2" onchange="cambiar();">
                 <?php foreach($fabricas as $fabrica) { ?>
                 <option value="<?=$fabrica['idfabrica']?>"><?=$fabrica['fabrica']?></option>
@@ -19,23 +19,23 @@
         </div>
         
         <div class="form-group">
-            <label>Orden de Trabajo (*)</label>
+            <label>Orden de Trabajo</label>
             <div id="resultado"></div>
             <?=form_error('ot', '<div class="alert alert-danger">', '</div>')?>
             <?=$alerta?>
         </div>
         
         <div class="form-group">
-            <label>Artículo (*)</label>
+            <label>Artículo</label>
             <select class="select2" name="articulo">
                 <?php foreach($articulos as $articulo) { ?>
-                <option value="<?=$articulo['idarticulo']?>"><?=$articulo['producto']['producto'].' '.$articulo['articulo'].' '.$articulo['plano']?></option>
+                <option value="<?=$articulo['idarticulo']?>"><?=$articulo['producto']['producto'].' '.$articulo['articulo'].' '.$articulo['plano'].' Revisión '.$articulo['revision'].' Posición '.$articulo['posicion']?></option>
                 <?php } ?>
             </select>
         </div>
         
         <div class="form-group">
-            <label>Cantidad (*)</label>
+            <label>Cantidad</label>
             <input type="text" maxlength="11" class="form-control" value="<?=set_value('cantidad')?>" name="cantidad">
             <?=form_error('cantidad', '<div class="alert alert-danger">', '</div>')?>
         </div>
@@ -61,8 +61,8 @@
         </div>
         
         <div class="form-group">
-            <label>Orden de Compra</label>
-            <select name="ordendecompra" class="select2">
+            <label>Pedido</label>
+            <select name="pedido" class="select2">
                 <option value="null" selected>Ninguna</option>
             </select>
         </div>

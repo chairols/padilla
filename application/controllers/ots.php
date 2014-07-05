@@ -6,7 +6,8 @@ class Ots extends CI_Controller {
         $this->load->library(array(
             'session',
             'r_session',
-            'form_validation'
+            'form_validation',
+            'pdf_ot'
         ));
         $this->load->model(array(
             'ots_model',
@@ -85,7 +86,7 @@ class Ots extends CI_Controller {
                     $datos['fecha_necesidad'] = $this->input->post('fecha_necesidad');
                 } 
                 
-                if($this->input->post('fecha_necesidad') == '') {
+                if($this->input->post('fecha_terminado') == '') {
                     $datos['fecha_terminado'] = NULL;
                 } else {
                     $datos['fecha_terminado'] = $this->input->post('fecha_terminado');
@@ -97,10 +98,10 @@ class Ots extends CI_Controller {
                     $datos['numero_serie'] = $this->input->post('numero_serie');
                 } 
                 
-                if($this->input->post('ordendecompra') == 'null') {
-                    $datos['ordendecompra'] = NULL;
+                if($this->input->post('pedido') == 'null') {
+                    $datos['idpedido'] = NULL;
                 } else {
-                    $datos['ordendecompra'] = $this->input->post('ordendecompra');
+                    $datos['idpedido'] = $this->input->post('pedido');
                 }
                 
                 $id = $this->ots_model->set($datos);
@@ -149,17 +150,68 @@ class Ots extends CI_Controller {
         foreach ($data['articulos'] as $key => $value) {
             $data['articulos'][$key]['producto'] = $this->productos_model->get_where(array('idproducto' => $value['idproducto']));
         }
-        $data['fabricas'] = $this->fabricas_model->gets();
         
-        $this->form_validation->set_rules('fabrica', 'Fabrica', 'required|integer');
-        $this->form_validation->set_rules('ot', 'Orden de Trabajo', 'required|integer');
+        $data['ot'] = $this->ots_model->get_where(array('idot' => $idot));
+        $data['fabrica'] = $this->fabricas_model->get_where(array('idfabrica' => $data['ot']['idfabrica']));
+
+        
         $this->form_validation->set_rules('articulo', 'Articulo', 'required|integer');
         $this->form_validation->set_rules('cantidad', 'Cantidad', 'required|numeric');
         
         if($this->form_validation->run() == FALSE) {
             
         } else {
+            $datos = array(
+                'cantidad' => $this->input->post('cantidad'),
+                'idarticulo' => $this->input->post('articulo'),
+                'observaciones' => $this->input->post('observaciones'),
+
+            );
+            if($this->input->post('fecha_necesidad') == '') {
+                $datos['fecha_necesidad'] = NULL;
+            } else {
+                $datos['fecha_necesidad'] = $this->input->post('fecha_necesidad');
+            } 
+
+            if($this->input->post('fecha_terminado') == '') {
+                $datos['fecha_terminado'] = NULL;
+            } else {
+                $datos['fecha_terminado'] = $this->input->post('fecha_terminado');
+            } 
+
+            if($this->input->post('numero_serie') == '') {
+                $datos['numero_serie'] = NULL;
+            } else {
+                $datos['numero_serie'] = $this->input->post('numero_serie');
+            } 
+
+            if($this->input->post('pedido') == 'null') {
+                $datos['idpedido'] = NULL;
+            } else {
+                $datos['idpedido'] = $this->input->post('pedido');
+            }
             
+            $this->ots_model->update($datos, $data['ot']['idot']);
+            
+            $log = array(
+               'tabla' => 'ots',
+               'idtabla' => $idot,
+               'texto' => 'Se modificó: <br>'
+                . 'fabrica: '.$data['fabrica']['fabrica'].'<br>'
+                . 'Número de Orden de Trabajo: '.$data['ot']['numero_ot'].'<br>'
+                . 'Cantidad: '.$this->input->post('cantidad').'<br>'
+                . 'Fecha de Necesidad: '.$this->input->post('fecha_necesidad').'<br>'
+                . 'Fecha de Terminado: '.$this->input->post('fecha_terminado').'<br>'
+                . 'Observaciones: '.$this->input->post('observaciones').'<br>'
+                . 'Número de serie: '.$this->input->post('numero_serie').'<br>'
+                . 'Pedido: '.$this->input->post('pedido'),
+               'tipo' => 'edit',
+               'idusuario' => $session['SID']
+            );
+
+            $this->log_model->set($log);
+            
+            redirect('/ots/', 'refresh');
         }
         
         $this->load->view('layout/header_form', $data);
@@ -169,6 +221,8 @@ class Ots extends CI_Controller {
     }
     
     public function ajax_fabricas($idfabrica) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
         $ultima_ot = $this->ots_model->get_ultima_ot($idfabrica);
         
         echo '<input type="text" maxlength="11" class="form-control" value="';
@@ -178,6 +232,81 @@ class Ots extends CI_Controller {
             echo (int)$ultima_ot['ultima_ot'] + 1;
         }
         echo '" name="ot" autofocus>';
+    }
+    
+    public function pdf($idot = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        if($idot == null) {
+            redirect('/ots/', 'refresh');
+        }
+        $ot = $this->ots_model->get_where(array('idot' => $idot));
+        $articulo = $this->articulos_model->get_where(array('idarticulo' => $ot['idarticulo']));
+        $producto = $this->productos_model->get_where(array('idproducto' => $articulo['idproducto']));
+        
+        $this->pdf = new Pdf_ot();
+        $this->pdf->AddPage();
+        $this->pdf->AliasNbPages();
+        
+        // Primer cuadro
+        $this->pdf->SetFont('Arial', 'B', 13);
+        $this->pdf->Line(10, 40, 200, 40);
+        $this->pdf->Line(10, 48, 200, 48);
+        $this->pdf->Line(10, 40, 10, 48);
+        $this->pdf->Line(200, 40, 200, 48);
+        $this->pdf->Line(105, 40, 105, 48);
+        // Fin del Primer Cuadro
+        
+        // Datos del primer cuadro
+        $this->pdf->SetXY(25, 44);
+        $this->pdf->Cell(0, 0, "Orden de Trabajo");
+        $this->pdf->SetXY(75, 44);
+        $this->pdf->Cell(0, 0, $ot['numero_ot']);
+        $this->pdf->SetXY(110, 44);
+        $this->pdf->Cell(0, 0, 'Numero de Pedido');
+        //  FALTA PONER EL PEDIDO
+        // Fin de datos del primer cuadro
+        
+        // Segundo cuadro
+        $this->pdf->SetFont('Arial', 'B', 13);
+        $this->pdf->Line(10, 52, 200, 52);
+        $this->pdf->Line(10, 60, 200, 60);
+        $this->pdf->Line(10, 52, 10, 60);
+        $this->pdf->Line(200, 52, 200, 60);
+        $this->pdf->Line(105, 52, 105, 60);
+        // Fin del Segundo Cuadro
+        
+        // Datos del segundo cuadro
+        $this->pdf->SetXY(15, 56);
+        $this->pdf->Cell(0, 0, "Plano");
+        $this->pdf->SetXY(40, 56);
+        $this->pdf->Cell(0, 0, $articulo['plano']);
+        $this->pdf->SetXY(110, 56);
+        $this->pdf->Cell(0, 0, 'Revision '.$articulo['revision'].'      Posicion: '.$articulo['posicion']);
+        // Fin de datos del segundo cuadro
+        
+        // Tercer cuadro
+        $this->pdf->SetFont('Arial', 'B', 13);
+        $this->pdf->Line(10, 64, 200, 64);
+        $this->pdf->Line(10, 72, 200, 72);
+        $this->pdf->Line(10, 64, 10, 72);
+        $this->pdf->Line(200, 64, 200, 72);
+        $this->pdf->Line(60, 64, 60, 72);
+        // Fin del Tercer Cuadro
+        
+        
+        // Datos del tercer cuadro
+        $this->pdf->SetXY(15, 68);
+        $this->pdf->Cell(0, 0, "Cantidad");
+        $this->pdf->SetXY(40, 68);
+        $this->pdf->Cell(0, 0, $ot['cantidad']);
+        $this->pdf->SetXY(65, 68);
+        $this->pdf->Cell(0, 0, 'Producto '.$producto['producto']);
+        // Fin de datos del tercer cuadro
+        
+        
+        
+        $this->pdf->Output('Orden de Trabajo '.$ot['numero_ot'], 'I');
     }
 }
 

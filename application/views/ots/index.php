@@ -35,6 +35,7 @@
                 </td>
                 <td>
                     <a href="/ots/ver/<?=$ot['idot']?>" class="label label-success"><i class="fa fa-eye"></i></a>
+                    <a href="/ots/pdf/<?=$ot['idot']?>/"><i class="fa fa-file-o"></i></a>
                     <a href="/ots/modificar/<?=$ot['idot']?>/" class="label label-default"><i class="fa fa-pencil"></i></a> 
                     <a href="/ots/borrar/<?=$ot['idot']?>" class="label label-danger"><i class="fa fa-times"></i></a>
                     <a href="/log/ver/ots/<?=$ot['idot']?>/" class="label label-info"><i class="fa fa-clock-o"></i></a>

@@ -10,63 +10,58 @@
 <div class="block-flat">
     <form role="form" method="post">
         <div class="form-group">
-            <label>Fábrica (*)</label>
-            <select name="fabrica" id="fabrica" class="select2" onchange="cambiar();">
-                <?php foreach($fabricas as $fabrica) { ?>
-                <option value="<?=$fabrica['idfabrica']?>"><?=$fabrica['fabrica']?></option>
-                <?php } ?>
-            </select>
+            <label>Fábrica</label>
+            <p><?=$fabrica['fabrica']?></p>
         </div>
         
         <div class="form-group">
-            <label>Orden de Trabajo (*)</label>
-            <div id="resultado"></div>
-            <?=form_error('ot', '<div class="alert alert-danger">', '</div>')?>
+            <label>Orden de Trabajo</label>
+            <p><?=$ot['numero_ot']?></p>
         </div>
         
         <div class="form-group">
-            <label>Artículo (*)</label>
+            <label>Artículo</label>
             <select class="select2" name="articulo">
                 <?php foreach($articulos as $articulo) { ?>
-                <option value="<?=$articulo['idarticulo']?>"><?=$articulo['producto']['producto'].' '.$articulo['articulo'].' '.$articulo['plano']?></option>
+                <option <?=($articulo['idarticulo']==$ot['idarticulo'])?"selected":""?> value="<?=$articulo['idarticulo']?>"><?=$articulo['producto']['producto'].' '.$articulo['articulo'].' '.$articulo['plano'].' Revisión '.$articulo['revision'].' Posición '.$articulo['posicion']?></option>
                 <?php } ?>
             </select>
         </div>
         
         <div class="form-group">
-            <label>Cantidad (*)</label>
-            <input type="text" maxlength="11" class="form-control" value="<?=set_value('cantidad')?>" name="cantidad">
+            <label>Cantidad</label>
+            <input type="text" maxlength="11" class="form-control" value="<?=$ot['cantidad']?>" name="cantidad">
             <?=form_error('cantidad', '<div class="alert alert-danger">', '</div>')?>
         </div>
         
         <div class="form-group">
             <label>Fecha de Necesidad</label>
-            <input type="text" class="form-control" id="necesidad" name="fecha_necesidad" readonly>
+            <input type="text" class="form-control" id="necesidad" name="fecha_necesidad" value="<?=($ot['fecha_necesidad']!=NULL)?$ot['fecha_necesidad']:""?>" readonly>
         </div>
         
         <div class="form-group">
             <label>Fecha de Terminado</label>
-            <input type="text" class="form-control" id="terminado" name="fecha_terminado" readonly>
+            <input type="text" class="form-control" id="terminado" name="fecha_terminado" value="<?=($ot['fecha_terminado']!=NULL)?$ot['fecha_terminado']:""?>" readonly>
         </div>
         
         <div class="form-group">
             <label>Observaciones</label>
-            <textarea class="form-control" rows="5" name="observaciones"><?=set_value('observaciones')?></textarea>
+            <textarea class="form-control" rows="5" name="observaciones"><?=$ot['observaciones']?></textarea>
         </div>
         
         <div class="form-group">
             <label>Número de Serie</label>
-            <input type="text" class="form-control" name="numero_serie">
+            <input type="text" class="form-control" name="numero_serie" value="<?=($ot['numero_serie']!=NULL)?$ot['numero_serie']:""?>">
         </div>
         
         <div class="form-group">
-            <label>Orden de Compra</label>
-            <select name="ordendecompra" class="select2">
+            <label>Pedido</label>
+            <select name="pedido" class="select2">
                 <option value="null" selected>Ninguna</option>
             </select>
         </div>
         
-        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="submit" class="btn btn-primary">Modificar</button>
     </form>
 </div>
 

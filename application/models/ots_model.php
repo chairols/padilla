@@ -53,5 +53,10 @@ class Ots_model extends CI_Model {
         
         return $query->result_array();
     }
+    
+    public function update($datos, $id) {
+        $array = array('idot' => $id);
+        $this->db->update('ots', $datos, $array);
+    }
 }
 ?>
