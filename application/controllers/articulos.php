@@ -111,6 +111,21 @@ class Articulos extends CI_Controller {
         $this->load->view('layout/footer_form');
     }
     
+    public function modificar($idarticulo = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        if($idarticulo == null) {
+            redirect('/articulos/', 'refresh');
+        }
+        $data['session'] = $session;
+        $data['alerta'] = '';
+        
+        $this->load->view('layout/header_form', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('articulos/modificar');
+        $this->load->view('layout/footer_form');
+    }
+    
     public function borrados() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);

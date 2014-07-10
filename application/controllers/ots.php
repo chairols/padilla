@@ -294,17 +294,39 @@ class Ots extends CI_Controller {
         $this->pdf->Line(60, 64, 60, 72);
         // Fin del Tercer Cuadro
         
-        
         // Datos del tercer cuadro
         $this->pdf->SetXY(15, 68);
         $this->pdf->Cell(0, 0, "Cantidad");
         $this->pdf->SetXY(40, 68);
         $this->pdf->Cell(0, 0, $ot['cantidad']);
         $this->pdf->SetXY(65, 68);
-        $this->pdf->Cell(0, 0, 'Producto '.$producto['producto']);
+        $this->pdf->Cell(0, 0, 'Producto: '.utf8_decode($producto['producto']));
         // Fin de datos del tercer cuadro
         
+        // Cuarto cuadro
+        $this->pdf->SetFont('Arial', 'B', 13);
+        $this->pdf->Line(10, 76, 200, 76);
+        $this->pdf->Line(10, 84, 200, 84);
+        $this->pdf->Line(10, 76, 10, 84);
+        $this->pdf->Line(200, 76, 200, 84);
+        $this->pdf->Line(105, 76, 105, 84);
+        // Fin del Cuarto Cuadro
         
+        // Datos del cuarto cuadro
+        $this->pdf->SetXY(15, 80);
+        $this->pdf->Cell(0, 0, "Fecha de Pedido");
+        $this->pdf->SetXY(60, 80);
+        $this->pdf->Cell(0, 0, strftime('%d/%m/%Y', strtotime($ot['timestamp'])));
+        $this->pdf->SetXY(110, 80);
+        $this->pdf->Cell(0, 0, 'Fecha de Entrega');
+        $this->pdf->SetXY(155, 80);
+        $this->pdf->Cell(0, 0, strftime('%d/%m/%Y', strtotime($ot['fecha_necesidad'])));
+        // Fin de datos del cuarto cuadro
+        
+        $this->pdf->SetXY(10, 100);
+        $this->pdf->Cell(0, 0, 'Observaciones');
+        $this->pdf->SetXY(10, 106);
+        $this->pdf->MultiCell(190, 6, utf8_decode($ot['observaciones']), 1, 1);
         
         $this->pdf->Output('Orden de Trabajo '.$ot['numero_ot'], 'I');
     }

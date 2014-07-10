@@ -14,6 +14,7 @@
                 <th><strong>Artículo</strong></th>
                 <th><strong>Revisión</strong></th>
                 <th><strong>Posición</strong></th>
+                <th><strong>Plano</strong></th>
                 <th><strong>Acción</strong></th>
             </tr>
         </thead>
@@ -24,9 +25,10 @@
                 <td><?=$articulo['articulo']?></td>
                 <td><?=$articulo['revision']?></td>
                 <td><?=$articulo['posicion']?></td>
+                <td><?=($articulo['planofile']!='')?"<a href='".$articulo['planofile']."' target='_blank'><i class='fa fa-file'></i></a>":""?></td>
                 <td>
-                    <a href="/articulos/ver/<?=$articulo['idarticulo']?>" class="label label-success"><i class="fa fa-eye"></i></a>
-                    <a href="#" class="label label-default"><i class="fa fa-pencil"></i></a> 
+                    <a href="/articulos/ver/<?=$articulo['idarticulo']?>/" class="label label-success"><i class="fa fa-eye"></i></a>
+                    <a href="/articulos/modificar/<?=$articulo['idarticulo']?>/" class="label label-default"><i class="fa fa-pencil"></i></a> 
                     <a href="/articulos/borrar/<?=$articulo['idarticulo']?>" class="label label-danger"><i class="fa fa-times"></i></a>
                     <a href="/log/ver/articulos/<?=$articulo['idarticulo']?>/" class="label label-info"><i class="fa fa-clock-o"></i></a>
                 </td>

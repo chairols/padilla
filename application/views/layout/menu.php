@@ -50,7 +50,7 @@
                         <div class="navbar-collapse">
                             <ul class="nav navbar-nav navbar-right user-nav">
                                 <li class="dropdown profile_menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$session['nombre']?> <?=$session['apellido']?></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$session['nombre']?> <?=$session['apellido']?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/usuarios/perfil/">Perfil</a></li>
                                         <li><a href="/usuarios/logout/">Salir</a></li>
