@@ -12,6 +12,7 @@
             <tr>
                 <th><strong>Producto</strong></th>
                 <th><strong>Artículo</strong></th>
+                <th><strong>Plano</strong></th>
                 <th><strong>Revisión</strong></th>
                 <th><strong>Posición</strong></th>
                 <th><strong>Plano</strong></th>
@@ -23,6 +24,7 @@
             <tr>
                 <td><?=$articulo['producto']['producto']?></td>
                 <td><?=$articulo['articulo']?></td>
+                <td><?=$articulo['plano']?></td>
                 <td><?=$articulo['revision']?></td>
                 <td><?=$articulo['posicion']?></td>
                 <td><?=($articulo['planofile']!='')?"<a href='".$articulo['planofile']."' target='_blank'><i class='fa fa-file'></i></a>":""?></td>

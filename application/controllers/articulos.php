@@ -6,7 +6,8 @@ class Articulos extends CI_Controller {
         $this->load->library(array(
             'session',
             'r_session',
-            'form_validation'
+            'form_validation',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -22,6 +23,7 @@ class Articulos extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['articulos'] = $this->articulos_model->gets();
         foreach ($data['articulos'] as $key => $value) {
@@ -38,6 +40,7 @@ class Articulos extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza cuando se repite un artículo ya existente
         $data['productos'] = $this->productos_model->gets();
         
@@ -65,7 +68,7 @@ class Articulos extends CI_Controller {
                 );
                 
                 $config['upload_path'] = "./upload/";
-                $config['allowed_types'] = 'pdf';
+                $config['allowed_types'] = '*';
                 $config['encrypt_name'] = true;
                 $config['remove_spaces'] = true;
                 
@@ -118,6 +121,7 @@ class Articulos extends CI_Controller {
             redirect('/articulos/', 'refresh');
         }
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';
         
         $this->load->view('layout/header_form', $data);
@@ -130,6 +134,7 @@ class Articulos extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['articulos'] = $this->articulos_model->gets_inactivos();
         
@@ -173,6 +178,7 @@ class Articulos extends CI_Controller {
             redirect('/articulos/', 'refresh');
         }
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['articulo'] = $this->articulos_model->get_where(array('idarticulo' => $idarticulo));
         $data['articulo']['producto'] = $this->productos_model->get_where(array('idproducto' => $data['articulo']['idproducto']));

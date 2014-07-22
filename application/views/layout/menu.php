@@ -14,29 +14,29 @@
                             </div>
                         </div>
                         <ul class="cl-vnavigation">
-                            <li><a href="/dashboard/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                            <li <?=($segmento=='dashboard')?"class='active'":""?>><a href="/dashboard/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                             <li><a href="#"><i class="fa fa-file-o"></i> Maestros</a>
                                 <ul class="sub-menu">
-                                    <li><a href="/articulos/">Artículos</a></li>
-                                    <li><a href="/clientes/">Clientes</a></li>
-                                    <li><a href="/fabricas/">Fábricas</a></li>
-                                    <li><a href="/insumos/">Insumos</a></li>
-                                    <li><a href="/monedas/">Monedas</a></li>
-                                    <li><a href="/productos/">Productos</a></li>
-                                    <li><a href="/proveedores/">Proveedores</a></li>
-                                    <li><a href="/provincias/">Provincias</a></li>
+                                    <li <?=($segmento=='articulos')?"class='active'":""?>><a href="/articulos/">Artículos</a></li>
+                                    <li <?=($segmento=='clientes')?"class='active'":""?>><a href="/clientes/">Clientes</a></li>
+                                    <li <?=($segmento=='fabricas')?"class='active'":""?>><a href="/fabricas/">Fábricas</a></li>
+                                    <li <?=($segmento=='insumos')?"class='active'":""?>><a href="/insumos/">Insumos</a></li>
+                                    <li <?=($segmento=='monedas')?"class='active'":""?>><a href="/monedas/">Monedas</a></li>
+                                    <li <?=($segmento=='productos')?"class='active'":""?>><a href="/productos/">Productos</a></li>
+                                    <li <?=($segmento=='proveedores')?"class='active'":""?>><a href="/proveedores/">Proveedores</a></li>
+                                    <li <?=($segmento=='provincias')?"class='active'":""?>><a href="/provincias/">Provincias</a></li>
                                 </ul>
                             </li>
                             <li><a href="#"><i class="fa fa-gears"></i> Producción</a>
                                 <ul class="sub-menu">
-                                    <li><a href="/ots/">Órdenes de Trabajo</a></li>
-                                    <li><a href="/pedidos/">Pedidos</a></li>
-                                    <li><a href="/rfqs/">RFQ's</a></li>
+                                    <li <?=($segmento=='ots')?"class='active'":""?>><a href="/ots/">Órdenes de Trabajo</a></li>
+                                    <li <?=($segmento=='pedidos')?"class='active'":""?>><a href="/pedidos/">Pedidos</a></li>
                                 </ul>
                             </li>
                             <li><a href="#"><i class="fa fa-dollar"></i> Compras</a>
                                 <ul class="sub-menu">
                                     <li><a href="/ocs/">Órdenes de Compra</a></li>
+                                    <li <?=($segmento=='rfqs')?"class='active'":""?>><a href="/rfqs/">RFQ's</a></li>
                                 </ul>
                             </li>
                         </ul>

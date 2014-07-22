@@ -6,7 +6,8 @@ class Productos extends CI_Controller {
         $this->load->library(array(
             'form_validation',
             'session',
-            'r_session'
+            'r_session',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -21,6 +22,7 @@ class Productos extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['productos'] = $this->productos_model->gets();
         
@@ -35,6 +37,7 @@ class Productos extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe la sucursal repetida
         
         $this->form_validation->set_rules('producto', 'Producto', 'required');

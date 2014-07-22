@@ -58,5 +58,14 @@ class Ots_model extends CI_Model {
         $array = array('idot' => $id);
         $this->db->update('ots', $datos, $array);
     }
+    
+    public function gets_vencidas() {
+        $query = $this->db->query("SELECT *
+                                    FROM
+                                        ots
+                                    WHERE 
+                                        fecha_necesidad <= CURDATE()");
+        return $query->result_array();
+    }
 }
 ?>

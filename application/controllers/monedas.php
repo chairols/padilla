@@ -6,7 +6,8 @@ class Monedas extends CI_Controller {
         $this->load->library(array(
             'session',
             'r_session',
-            'form_validation'
+            'form_validation',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -21,6 +22,7 @@ class Monedas extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['monedas'] = $this->monedas_model->gets();
         
@@ -35,6 +37,7 @@ class Monedas extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe el insumo repetido
         
         $this->form_validation->set_rules('moneda', 'Moneda', 'required');

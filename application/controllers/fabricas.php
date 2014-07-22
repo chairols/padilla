@@ -6,7 +6,8 @@ class Fabricas extends CI_Controller {
         $this->load->library(array(
             'form_validation',
             'session',
-            'r_session'
+            'r_session',
+            'uri'
         ));
         $this->load->model(array(
             'fabricas_model'
@@ -19,8 +20,9 @@ class Fabricas extends CI_Controller {
     public function index() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
-        
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
+        
         $data['fabricas'] = $this->fabricas_model->gets();
         
         $this->load->view('layout/header_datatable', $data);
@@ -34,6 +36,7 @@ class Fabricas extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe la fábrica repetida
         
         $this->form_validation->set_rules('fabrica', 'Fábrica', 'required');

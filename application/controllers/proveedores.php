@@ -6,7 +6,8 @@ class Proveedores extends CI_Controller {
         $this->load->library(array(
             'session',
             'r_session',
-            'form_validation'
+            'form_validation',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -23,6 +24,8 @@ class Proveedores extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
+        
         $data['proveedores'] = $this->proveedores_model->gets();
         
         $this->load->view('layout/header_datatable', $data);
@@ -36,6 +39,7 @@ class Proveedores extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe el proveedor repetida
         $data['provincias'] = $this->provincias_model->gets();
         

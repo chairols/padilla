@@ -6,7 +6,8 @@ class Pedidos extends CI_Controller {
         $this->load->library(array(
             'session',
             'r_session',
-            'form_validation'
+            'form_validation',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -21,6 +22,7 @@ class Pedidos extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['pedidos'] = array();
         
         $this->load->view('layout/header_datatable', $data);
@@ -33,6 +35,7 @@ class Pedidos extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['clientes'] = $this->clientes_model->gets();
         $data['monedas'] = $this->monedas_model->gets();
         

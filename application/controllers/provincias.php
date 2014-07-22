@@ -6,7 +6,8 @@ class Provincias extends CI_Controller {
         $this->load->library(array(
             'form_validation',
             'session',
-            'r_session'
+            'r_session',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -22,6 +23,7 @@ class Provincias extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['provincias'] = $this->provincias_model->gets();
         
@@ -36,6 +38,7 @@ class Provincias extends CI_Controller {
         $this->r_session->check($session);
         
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe la provincia repetida
         
         $this->form_validation->set_rules('provincia', 'Provincia', 'required');

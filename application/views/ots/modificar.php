@@ -37,11 +37,13 @@
         <div class="form-group">
             <label>Fecha de Necesidad</label>
             <input type="text" class="form-control" id="necesidad" name="fecha_necesidad" value="<?=($ot['fecha_necesidad']!=NULL)?$ot['fecha_necesidad']:""?>" readonly>
+            <a onclick="limpiar_campo('necesidad');" href="#" class="label label-danger"><i class="fa fa-times"></i> Borrar fecha</a>
         </div>
         
         <div class="form-group">
             <label>Fecha de Terminado</label>
             <input type="text" class="form-control" id="terminado" name="fecha_terminado" value="<?=($ot['fecha_terminado']!=NULL)?$ot['fecha_terminado']:""?>" readonly>
+            <a onclick="limpiar_campo('terminado')" href="#" class="label label-danger"><i class="fa fa-times"></i> Borrar fecha</a>
         </div>
         
         <div class="form-group">
@@ -68,6 +70,10 @@
 <script type="text/javascript">
     function inicio() {
         cambiar();
+    }
+    
+    function limpiar_campo(campo) {
+        $("#"+campo).val("");
     }
     
     function cambiar() {

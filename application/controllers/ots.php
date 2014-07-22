@@ -7,7 +7,8 @@ class Ots extends CI_Controller {
             'session',
             'r_session',
             'form_validation',
-            'pdf_ot'
+            'pdf_ot',
+            'uri'
         ));
         $this->load->model(array(
             'ots_model',
@@ -25,6 +26,7 @@ class Ots extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['ots'] = $this->ots_model->gets();
         foreach ($data['ots'] as $key => $value) {
@@ -49,6 +51,7 @@ class Ots extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';   //  Se utiliza para cuando la OT ya existe
         
         $data['articulos'] = $this->articulos_model->gets();
@@ -145,6 +148,7 @@ class Ots extends CI_Controller {
             redirect('/ots/', 'refresh');
         }
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['articulos'] = $this->articulos_model->gets();
         foreach ($data['articulos'] as $key => $value) {
@@ -300,7 +304,7 @@ class Ots extends CI_Controller {
         $this->pdf->SetXY(40, 68);
         $this->pdf->Cell(0, 0, $ot['cantidad']);
         $this->pdf->SetXY(65, 68);
-        $this->pdf->Cell(0, 0, 'Producto: '.utf8_decode($producto['producto']));
+        $this->pdf->Cell(0, 0, 'Producto: '.utf8_decode($producto['producto']).' '.utf8_decode($articulo['articulo']));
         // Fin de datos del tercer cuadro
         
         // Cuarto cuadro
@@ -320,7 +324,11 @@ class Ots extends CI_Controller {
         $this->pdf->SetXY(110, 80);
         $this->pdf->Cell(0, 0, 'Fecha de Entrega');
         $this->pdf->SetXY(155, 80);
-        $this->pdf->Cell(0, 0, strftime('%d/%m/%Y', strtotime($ot['fecha_necesidad'])));
+        $fecha_necesidad = '';
+        if($ot['fecha_necesidad'] != null) {
+            $fecha_necesidad = strftime('%d/%m/%Y', strtotime($ot['fecha_necesidad']));
+        }
+        $this->pdf->Cell(0, 0, $fecha_necesidad);
         // Fin de datos del cuarto cuadro
         
         $this->pdf->SetXY(10, 100);

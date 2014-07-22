@@ -5,7 +5,8 @@ class Log extends CI_Controller {
         parent::__construct();
         $this->load->library(array(
             'session',
-            'r_session'
+            'r_session',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -20,6 +21,7 @@ class Log extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         $data['logs'] = $this->log_model->gets($tabla, $idtabla);
         
         foreach ($data['logs'] as $key => $value) {

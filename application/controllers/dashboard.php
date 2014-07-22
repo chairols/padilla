@@ -5,7 +5,8 @@ class Dashboard extends CI_Controller {
         parent::__construct();
         $this->load->library(array(
             'session',
-            'r_session'
+            'r_session',
+            'uri'
         ));
         $this->load->helper(array(
             'url'
@@ -19,9 +20,11 @@ class Dashboard extends CI_Controller {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
         
         $data['ots_pendientes'] = $this->ots_model->gets_where(array('fecha_terminado' => null));
         $data['ots_cumplidas'] = $this->ots_model->gets_pendientes();
+        $data['ots_vencidas'] = $this->ots_model->gets_vencidas();
         
         
         $this->load->view('layout/header_form', $data);
