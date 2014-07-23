@@ -34,11 +34,11 @@
                     <?php } ?>
                 </td>
                 <td>
-                    <a href="/ots/ver/<?=$ot['idot']?>" class="label label-success"><i class="fa fa-eye"></i></a>
-                    <a href="/ots/pdf/<?=$ot['idot']?>/" target="_blank"><i class="fa fa-file-o"></i></a>
-                    <a href="/ots/modificar/<?=$ot['idot']?>/" class="label label-default"><i class="fa fa-pencil"></i></a> 
-                    <a href="/ots/borrar/<?=$ot['idot']?>" class="label label-danger"><i class="fa fa-times"></i></a>
-                    <a href="/log/ver/ots/<?=$ot['idot']?>/" class="label label-info"><i class="fa fa-clock-o"></i></a>
+                    <a href="/ots/ver/<?=$ot['idot']?>" data-pacement="top" data-toggle="tooltip" data-original-title="Ver // Falta desarrollar" class="label label-success"><i class="fa fa-eye"></i></a>
+                    <a href="/ots/pdf/<?=$ot['idot']?>/" data-pacement="top" data-toggle="tooltip" data-original-title="Generar Carátula" target="_blank"><i class="fa fa-file-o"></i></a>
+                    <a href="/ots/modificar/<?=$ot['idot']?>/" data-pacement="top" data-toggle="tooltip" data-original-title="Modificar" class="label label-default"><i class="fa fa-pencil"></i></a> 
+                    <a href="/ots/borrar/<?=$ot['idot']?>" data-pacement="top" data-toggle="tooltip" data-original-title="Borrar" class="label label-danger"><i class="fa fa-times"></i></a>
+                    <a href="/log/ver/ots/<?=$ot['idot']?>/" data-pacement="top" data-toggle="tooltip" data-original-title="Ver Historial" class="label label-info"><i class="fa fa-clock-o"></i></a>
                 </td>
             </tr>
         <?php } ?>
