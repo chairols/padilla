@@ -140,6 +140,14 @@ class Pedidos extends CI_Controller {
         $this->load->view('pedidos/agregar_items');
         $this->load->view('layout/footer_form');
     }
+    
+    public function borrar_item($idpedido_item = null) {
+        if(is_integer($idpedido_item)) {
+            
+        } else {
+            
+        }
+    }
 }
 
 ?>

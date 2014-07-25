@@ -25,6 +25,7 @@
                                     <li <?=($segmento=='productos')?"class='active'":""?>><a href="/productos/">Productos</a></li>
                                     <li <?=($segmento=='proveedores')?"class='active'":""?>><a href="/proveedores/">Proveedores</a></li>
                                     <li <?=($segmento=='provincias')?"class='active'":""?>><a href="/provincias/">Provincias</a></li>
+                                    <li <?=($segmento=='medidas')?"class='active'":""?>><a href="/medidas/">Unidades de Medidas</a></li>
                                 </ul>
                             </li>
                             <li><a href="#"><i class="fa fa-gears"></i> Producción</a>

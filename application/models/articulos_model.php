@@ -13,11 +13,13 @@ class Articulos_model extends CI_Model {
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
-                                        articulos
+                                        articulos a,
+                                        productos p
                                     WHERE
-                                        activo = '1'
+                                        a.idproducto = p.idproducto AND
+                                        a.activo = '1'
                                     ORDER BY
-                                        articulo");
+                                        a.articulo");
         return $query->result_array();
     }
     

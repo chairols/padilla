@@ -1,3 +1,8 @@
+<ul class="nav nav-tabs nav-tabs-justified">
+    <li><a href="/pedidos/">Listar pedidos</a></li>
+    <li class="active"><a href="/pedidos/agregar/">Agregar pedido</a></li>
+</ul>
+
 <div class="block-flat">
     <h4 class="page-header">
         <span class="pull-right">
@@ -47,7 +52,7 @@
                 <div class="content">
                     <select name="articulo" class="select2">
                         <?php foreach($articulos as $articulo) { ?>
-                        <option value="<?=$articulo['idarticulo']?>"><?=$articulo['articulo']?></option>
+                        <option value="<?=$articulo['idarticulo']?>"><?=$articulo['producto'].' '.$articulo['articulo'].' '.$articulo['plano']?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -77,24 +82,56 @@
     <table class="table table-hover">
         <thead>
             <tr class="alert alert-info">
-                <th>Cantidad</th>
-                <th>Artículo</th>
-                <th>Precio Unitario</th>
-                <th>Precio Total</th>
-                <th>Acción</th>
+                <th><strong>Cantidad</strong></th>
+                <th><strong>Artículo</strong></th>
+                <th><strong>Precio Unitario</strong></th>
+                <th><strong>Precio Total</strong></th>
+                <th><strong>Acción</strong></th>
             </tr>
         </thead>
         <tbody>
+            <?php $subtotal = 0; ?>
             <?php foreach($pedido_items as $item) { ?>
             <tr>
                 <td><?=$item['cantidad']?></td>
                 <td><?=$item['producto'].' '.$item['articulo'].' '.$item['plano']?></td>
-                <td><?=number_format($item['precio'])?></td>
-                <td><?=number_format($item['cantidad']*$item['precio'], 2)?></td>
-                <td>&nbsp;</td>
+                <td class="text-right"><?=number_format($item['precio'], 2)?></td>
+                <td class="text-right"><?=number_format($item['cantidad']*$item['precio'], 2)?></td>
+                <td>
+                    <a href="/pedidos/modificar_item/<?=$item['idpedido_item']?>/" data-pacement="top" data-toggle="tooltip" data-original-title="Modificar" class="label label-default"><i class="fa fa-pencil"></i></a>
+                    <a href="/pedidos/borrar_item/<?=$item['idpedido_item']?>" data-pacement="top" data-toggle="tooltip" data-original-title="Borrar" class="label label-danger"><i class="fa fa-times"></i></a>
+                </td>
+                <?php $subtotal += ($item['cantidad'] * $item['precio']); ?>
             </tr>
             <?php } ?>
         </tbody>
+        <thead>
+            <tr class="alert alert-info">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><strong>Subtotal</strong></td>
+                <td class="text-right"><strong><?=number_format($subtotal, 2)?></strong></td>
+                <td>&nbsp;</td>
+            </tr>
+        </thead>
+        <thead>
+            <tr class="alert alert-info">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><strong>IVA 21%</strong></td>
+                <td class="text-right"><strong><?=number_format($subtotal * 0.21, 2)?></strong></td>
+                <td>&nbsp;</td>
+            </tr>
+        </thead>
+        <thead>
+            <tr class="alert alert-info">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><strong>Total</strong></td>
+                <td class="text-right"><strong><?=number_format($subtotal * 1.21, 2)?></strong></td>
+                <td>&nbsp;</td>
+            </tr>
+        </thead>
     </table>
     <span>
         <a href="/pedidos/">
