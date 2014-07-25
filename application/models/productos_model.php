@@ -9,6 +9,11 @@ class Productos_model extends CI_Model {
         $this->db->insert('productos', $datos);
     }
     
+    /*
+     * 
+     * articulos/agregar
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM

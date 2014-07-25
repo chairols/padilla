@@ -25,5 +25,18 @@ class Medidas extends CI_Controller {
         $this->load->view('medidas/index');
         $this->load->view('layout/footer_datatable');
     }
+    
+    public function agregar() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
+        
+        
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('medidas/agregar');
+        $this->load->view('layout/footer_datatable');
+    }
 }
 ?>

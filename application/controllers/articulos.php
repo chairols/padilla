@@ -26,9 +26,6 @@ class Articulos extends CI_Controller {
         $data['segmento'] = $this->uri->segment(1);
         
         $data['articulos'] = $this->articulos_model->gets();
-        foreach ($data['articulos'] as $key => $value) {
-            $data['articulos'][$key]['producto'] = $this->productos_model->get_where(array('idproducto' => $value['idproducto']));
-        }
         
         $this->load->view('layout/header_datatable', $data);
         $this->load->view('layout/menu');
@@ -42,6 +39,7 @@ class Articulos extends CI_Controller {
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza cuando se repite un artículo ya existente
+        
         $data['productos'] = $this->productos_model->gets();
         
         $this->form_validation->set_rules('articulo', 'Artículo', 'required');

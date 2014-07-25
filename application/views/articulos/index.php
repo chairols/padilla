@@ -22,7 +22,7 @@
         <tbody>
             <?php foreach($articulos as $articulo) { ?>
             <tr>
-                <td><?=$articulo['producto']['producto']?></td>
+                <td><?=$articulo['producto']?></td>
                 <td><?=$articulo['articulo']?></td>
                 <td><?=$articulo['plano']?></td>
                 <td><?=$articulo['revision']?></td>

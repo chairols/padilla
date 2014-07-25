@@ -5,11 +5,21 @@ class Articulos_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * articulos/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('articulos', $datos);
         return $this->db->insert_id();
     }
     
+    /*
+     * 
+     * articulos/index
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
@@ -34,6 +44,11 @@ class Articulos_model extends CI_Model {
         return $query->result_array();
     }
     
+    /*
+     * 
+     * articulos/agregar
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('articulos', $where);
         

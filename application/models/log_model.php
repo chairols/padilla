@@ -5,6 +5,11 @@ class Log_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * articulos/agregar
+     * 
+     */
     public function set($array) {
         $this->db->insert('log', $array);
     }
