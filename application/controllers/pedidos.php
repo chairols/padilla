@@ -17,7 +17,8 @@ class Pedidos extends CI_Controller {
             'monedas_model',
             'pedidos_model',
             'provincias_model',
-            'log_model'
+            'log_model',
+            'articulos_model'
         ));
     }
     
@@ -26,7 +27,7 @@ class Pedidos extends CI_Controller {
         $this->r_session->check($session);
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
-        $data['pedidos'] = array();
+        $data['pedidos'] = $this->pedidos_model->gets();
         
         $this->load->view('layout/header_datatable', $data);
         $this->load->view('layout/menu');
@@ -54,6 +55,24 @@ class Pedidos extends CI_Controller {
                 'ordendecompra' => $this->input->post('ordendecompra')
             );
             
+            $config['upload_path'] = "./upload/pedidos/";
+            $config['allowed_types'] = '*';
+            $config['encrypt_name'] = true;
+            $config['remove_spaces'] = true;
+
+            $this->load->library('upload', $config);
+            $adjunto = null;
+            
+            if(!$this->upload->do_upload('adjunto')) {
+                $error = array('error' => $this->upload->display_errors());
+            } else {
+                $adjunto = array('upload_data' => $this->upload->data());
+            }
+            
+            if($adjunto != null) {
+                $datos['adjunto'] = '/upload/pedidos/'.$adjunto['upload_data']['file_name'];
+            } 
+            
             $idpedido = $this->pedidos_model->set($datos);
             
             $cliente = $this->clientes_model->get_where(array('idcliente' => $this->input->post('cliente')));
@@ -65,7 +84,8 @@ class Pedidos extends CI_Controller {
                 'texto' => 'Se agregó: <br>'
                  . 'cliente: '.$cliente['cliente'].'<br>'
                  . 'moneda: '.$moneda['moneda'].'<br>'
-                 . 'orden de compra: '.$this->input->post('ordendecompra'),
+                 . 'orden de compra: '.$this->input->post('ordendecompra').'<br>'
+                 . 'adjunto: /upload/pedidos/'.$adjunto['upload_data']['file_name'],
                 'tipo' => 'add',
                 'idusuario' => $session['SID']
             );
@@ -91,10 +111,29 @@ class Pedidos extends CI_Controller {
             redirect('/pedidos/', 'refresh');
         }
         
+        $this->form_validation->set_rules('cantidad', 'Cantidad', 'required|numeric');
+        $this->form_validation->set_rules('articulo', 'Artículo', 'required|numeric');
+        $this->form_validation->set_rules('precio', 'Precio', 'required|numeric');
+        
+        if($this->form_validation->run() == FALSE) {
+            
+        } else {
+            $datos = array(
+                'idpedido' => $idpedido,
+                'cantidad' => $this->input->post('cantidad'),
+                'idarticulo' => $this->input->post('articulo'),
+                'precio' => $this->input->post('precio')
+            );
+            
+            $this->pedidos_model->set_item($datos);
+        }
+        
         $data['pedido'] = $this->pedidos_model->get_where(array('idpedido' => $idpedido));
         $data['cliente'] = $this->clientes_model->get_where(array('idcliente' => $data['pedido']['idcliente']));
         $data['cliente']['provincia'] = $this->provincias_model->get_where(array('idprovincia' => $data['cliente']['idprovincia']));
         $data['pedido']['moneda'] = $this->monedas_model->get_where(array('idmoneda' => $data['pedido']['idmoneda']));
+        $data['articulos'] = $this->articulos_model->gets();
+        $data['pedido_items'] = $this->pedidos_model->gets_items($idpedido);
         
         $this->load->view('layout/header_form', $data);
         $this->load->view('layout/menu');

@@ -16,5 +16,40 @@ class Pedidos_model extends CI_Model {
         
         return $query->row_array();
     }
+    
+    public function gets() {
+        $query = $this->db->query("SELECT *
+                                    FROM
+                                        pedidos p,
+                                        clientes c,
+                                        monedas m
+                                    WHERE
+                                        p.idcliente = c.idcliente AND
+                                        p.idmoneda = m.idmoneda AND
+                                        p.activo = 1");
+        return $query->result_array();
+    }
+    
+    public function set_item($item) {
+        $this->db->insert('pedidos_items', $item);
+    }
+    
+    /*
+     * 
+     * pedidos/agregar_items
+     * 
+     */
+    public function gets_items($idpedido) {
+        $query = $this->db->query("SELECT *
+                                    FROM
+                                        pedidos_items pi,
+                                        articulos a,
+                                        productos p
+                                    WHERE
+                                        a.idproducto = p.idproducto AND
+                                        pi.idarticulo = a.idarticulo AND
+                                        pi.idpedido = '$idpedido'");
+        return $query->result_array();
+    }
 }
 ?>

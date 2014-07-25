@@ -4,7 +4,7 @@
 </ul>
 
 <div class="block-flat">
-    <form role="form" method="post">
+    <form role="form" method="post" enctype="multipart/form-data">
         
         <div class="form-group">
             <label>Cliente</label>
@@ -29,7 +29,14 @@
             <input type="text" maxlength="100" class="form-control" value="<?=set_value('ordendecompra')?>" name="ordendecompra">
         </div>
         
-        <button type="submit" class="btn btn-primary">Agregar</button>
+        <div class="form-group">
+            <label>Adjunto</label>
+            <input type="file" class="form-control" name="adjunto">
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </div>
         
     </form>
 </div>
