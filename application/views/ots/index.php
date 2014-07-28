@@ -25,7 +25,7 @@
         <?php foreach($ots as $ot) { ?>
             <tr>
                 <td><?=$ot['numero_ot']?></td>
-                <td><?=$ot['fabrica']['fabrica']?></td>
+                <td><?=$ot['fabrica']?></td>
                 <td>
                     <?php if($ot['fecha_terminado'] == null) { ?>
                     <div class="label label-danger"><strong>PENDIENTE</strong></div>

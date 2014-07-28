@@ -5,10 +5,22 @@ class Fabricas_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * fabricas/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('fabricas', $datos);
     }
     
+    /*
+     * 
+     * fabricas/index
+     * 
+     * ots/agregar
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
@@ -18,6 +30,12 @@ class Fabricas_model extends CI_Model {
         return $query->result_array();
     }
     
+    /*
+     * 
+     * fabricas/agregar 
+     * ots/modificar
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('fabricas', $where);
         

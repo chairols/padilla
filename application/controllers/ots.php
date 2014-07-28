@@ -22,6 +22,9 @@ class Ots extends CI_Controller {
         ));
     }
     
+    /*
+     * Terminado
+     */
     public function index() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
@@ -29,9 +32,6 @@ class Ots extends CI_Controller {
         $data['segmento'] = $this->uri->segment(1);
         
         $data['ots'] = $this->ots_model->gets();
-        foreach ($data['ots'] as $key => $value) {
-            $data['ots'][$key]['fabrica'] = $this->fabricas_model->get_where(array('idfabrica' => $value['idfabrica']));
-        }
         
         $this->load->view('layout/header_datatable', $data);
         $this->load->view('layout/menu');
@@ -55,9 +55,6 @@ class Ots extends CI_Controller {
         $data['alerta'] = '';   //  Se utiliza para cuando la OT ya existe
         
         $data['articulos'] = $this->articulos_model->gets();
-        foreach ($data['articulos'] as $key => $value) {
-            $data['articulos'][$key]['producto'] = $this->productos_model->get_where(array('idproducto' => $value['idproducto']));
-        }
         $data['fabricas'] = $this->fabricas_model->gets();
         
         $this->form_validation->set_rules('fabrica', 'Fabrica', 'required|integer');
@@ -151,9 +148,7 @@ class Ots extends CI_Controller {
         $data['segmento'] = $this->uri->segment(1);
         
         $data['articulos'] = $this->articulos_model->gets();
-        foreach ($data['articulos'] as $key => $value) {
-            $data['articulos'][$key]['producto'] = $this->productos_model->get_where(array('idproducto' => $value['idproducto']));
-        }
+        
         
         $data['ot'] = $this->ots_model->get_where(array('idot' => $idot));
         $data['fabrica'] = $this->fabricas_model->get_where(array('idfabrica' => $data['ot']['idfabrica']));

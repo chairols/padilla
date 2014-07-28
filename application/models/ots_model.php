@@ -5,23 +5,40 @@ class Ots_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * ots/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('ots', $datos);
         return $this->db->insert_id();
     }
     
+    /*
+     * 
+     * ots/index
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
-                                        ots
+                                        ots o,
+                                        fabricas f
                                     WHERE
-                                        activo = '1'
+                                        o.idfabrica = f.idfabrica AND
+                                        o.activo = '1'
                                     ORDER BY
-                                        numero_ot DESC");
+                                        o.numero_ot DESC");
         return $query->result_array();
     }
     
-    public function gets_pendientes() {
+    /*
+     * 
+     * dashboard/index
+     * 
+     */
+    public function gets_cumplidas() {
         $query = $this->db->query("SELECT *
                                     FROM
                                         ots
@@ -33,6 +50,11 @@ class Ots_model extends CI_Model {
         return $query->result_array();
     }
     
+    /*
+     * 
+     * ots/ajax_fabricas
+     * 
+     */
     public function get_ultima_ot($idfabrica) {
         $query = $this->db->query("SELECT max(numero_ot) as ultima_ot
                                     FROM
@@ -42,23 +64,45 @@ class Ots_model extends CI_Model {
         return $query->row_array();
     }
     
+    /*
+     * 
+     * ots/agregar
+     * ots/modificar
+     * ots/pdf
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('ots', $where);
         
         return $query->row_array();
     }
     
+    /*
+     * 
+     * dashboard/index
+     * 
+     */
     public function gets_where($where) {
         $query = $this->db->get_where('ots', $where);
         
         return $query->result_array();
     }
     
+    /*
+     * 
+     * ots/modificar
+     * 
+     */
     public function update($datos, $id) {
         $array = array('idot' => $id);
         $this->db->update('ots', $datos, $array);
     }
     
+    /*
+     * 
+     * dashboard/index
+     * 
+     */
     public function gets_vencidas() {
         $query = $this->db->query("SELECT *
                                     FROM

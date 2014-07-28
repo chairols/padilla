@@ -22,9 +22,9 @@ class Clientes extends CI_Controller {
     public function index() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
-        
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
+        
         $data['clientes'] = $this->clientes_model->gets();
         
         $this->load->view('layout/header_datatable', $data);
@@ -36,10 +36,10 @@ class Clientes extends CI_Controller {
     public function agregar() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
-        
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe el proveedor repetida
+        
         $data['provincias'] = $this->provincias_model->gets();
         
         $this->form_validation->set_rules('cliente', 'Cliente', 'required');

@@ -5,11 +5,21 @@ class Insumos_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * insumos/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('insumos', $datos);
         return $this->db->insert_id();
     }
     
+    /*
+     * 
+     * insumos/index
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
@@ -19,6 +29,11 @@ class Insumos_model extends CI_Model {
         return $query->result_array();
     }
     
+    /*
+     * 
+     * insumos/agregar
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('insumos', $where);
         

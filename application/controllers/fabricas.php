@@ -34,7 +34,6 @@ class Fabricas extends CI_Controller {
     public function agregar() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
-        
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
         $data['alerta'] = '';  // Se utiliza si existe la fábrica repetida

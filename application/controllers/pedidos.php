@@ -27,6 +27,7 @@ class Pedidos extends CI_Controller {
         $this->r_session->check($session);
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
+        
         $data['pedidos'] = $this->pedidos_model->gets();
         
         $this->load->view('layout/header_datatable', $data);
@@ -40,6 +41,7 @@ class Pedidos extends CI_Controller {
         $this->r_session->check($session);
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
+        
         $data['clientes'] = $this->clientes_model->gets();
         $data['monedas'] = $this->monedas_model->gets();
         
@@ -125,7 +127,23 @@ class Pedidos extends CI_Controller {
                 'precio' => $this->input->post('precio')
             );
             
-            $this->pedidos_model->set_item($datos);
+            $iditem = $this->pedidos_model->set_item($datos);
+            
+            $articulo = $this->articulos_model->get_where(array('idarticulo' => $this->input->post('articulo')));
+            $producto = $this->productos_model->get_where(array('idproducto' => $articulo['idproducto']));
+            
+            $log = array(
+                'tabla' => 'pedidos',
+                'idtabla' => $idpedido,
+                'texto' => 'Se agregó: <br>'
+                 . 'cantidad: '.$this->input->post('cantidad').'<br>'
+                 . 'articulo: '.$producto['producto'].' '.$articulo['articulo'].' '.$articulo['plano'].'<br>'
+                 . 'precio: '.number_format($this->input->post('precio'), 2),
+                'tipo' => 'add',
+                'idusuario' => $session['SID']
+            );
+
+            $this->log_model->set($log);
         }
         
         $data['pedido'] = $this->pedidos_model->get_where(array('idpedido' => $idpedido));

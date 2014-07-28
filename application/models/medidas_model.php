@@ -5,6 +5,11 @@ class Medidas_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * medidas/index
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM

@@ -36,9 +36,9 @@ class Provincias extends CI_Controller {
     public function agregar() {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
-        
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
+        
         $data['alerta'] = '';  // Se utiliza si existe la provincia repetida
         
         $this->form_validation->set_rules('provincia', 'Provincia', 'required');

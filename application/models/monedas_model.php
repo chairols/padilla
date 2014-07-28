@@ -5,20 +5,42 @@ class Monedas_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * monedas/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('monedas', $datos);
         return $this->db->insert_id();
     }
     
+    /*
+     * 
+     * monedas/index
+     * 
+     * pedidos/agregar
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
                                         monedas
                                     WHERE
-                                        activo = '1'");
+                                        activo = '1'
+                                    ORDER BY
+                                        moneda");
         return $query->result_array();  
     }
     
+    /*
+     * 
+     * monedas/agregar
+     * 
+     * pedidos/agregar
+     * pedidos/agregar_items
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('monedas', $where);
         

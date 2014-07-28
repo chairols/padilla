@@ -5,18 +5,33 @@ class Pedidos_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * pedidos/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('pedidos', $datos);
         
         return $this->db->insert_id();
     }
     
+    /*
+     * 
+     * pedidos/agregar_items
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('pedidos', $where);
         
         return $query->row_array();
     }
     
+    /*
+     * 
+     * pedidos/index
+     * 
+     */
     public function gets() {
         $query = $this->db->query("SELECT *
                                     FROM
@@ -30,8 +45,15 @@ class Pedidos_model extends CI_Model {
         return $query->result_array();
     }
     
+    /*
+     * 
+     * pedidos/agregar_items
+     * 
+     */
     public function set_item($item) {
         $this->db->insert('pedidos_items', $item);
+        
+        return $this->db->insert_id();
     }
     
     /*

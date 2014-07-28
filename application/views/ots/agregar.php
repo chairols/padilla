@@ -29,7 +29,7 @@
             <label>Artículo</label>
             <select class="select2" name="articulo">
                 <?php foreach($articulos as $articulo) { ?>
-                <option value="<?=$articulo['idarticulo']?>"><?=$articulo['producto']['producto'].' '.$articulo['articulo'].' '.$articulo['plano'].' Revisión '.$articulo['revision'].' Posición '.$articulo['posicion']?></option>
+                <option value="<?=$articulo['idarticulo']?>"><?=$articulo['producto'].' '.$articulo['articulo'].' '.$articulo['plano'].' Revisión '.$articulo['revision'].' Posición '.$articulo['posicion']?></option>
                 <?php } ?>
             </select>
         </div>

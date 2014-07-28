@@ -19,6 +19,11 @@ class Articulos_model extends CI_Model {
      * 
      * articulos/index
      * 
+     * ots/agregar
+     * ots/modificar
+     * 
+     * pedidos/agregar_items
+     * 
      */
     public function gets() {
         $query = $this->db->query("SELECT *
@@ -47,6 +52,8 @@ class Articulos_model extends CI_Model {
     /*
      * 
      * articulos/agregar
+     * 
+     * ots/pdf
      * 
      */
     public function get_where($where) {

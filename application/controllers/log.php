@@ -22,6 +22,7 @@ class Log extends CI_Controller {
         $this->r_session->check($session);
         $data['session'] = $session;
         $data['segmento'] = $this->uri->segment(1);
+        
         $data['logs'] = $this->log_model->gets($tabla, $idtabla);
         
         foreach ($data['logs'] as $key => $value) {

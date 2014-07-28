@@ -5,6 +5,11 @@ class Productos_model extends CI_Model {
         $this->load->database();
     }
     
+    /*
+     * 
+     * productos/agregar
+     * 
+     */
     public function set($datos) {
         $this->db->insert('productos', $datos);
     }
@@ -12,6 +17,8 @@ class Productos_model extends CI_Model {
     /*
      * 
      * articulos/agregar
+     * 
+     * productos/index
      * 
      */
     public function gets() {
@@ -23,6 +30,13 @@ class Productos_model extends CI_Model {
         return $query->result_array();
     }
     
+    /*
+     * 
+     * ots/pdf
+     * 
+     * productos/agregar
+     * 
+     */
     public function get_where($where) {
         $query = $this->db->get_where('productos', $where);
         
