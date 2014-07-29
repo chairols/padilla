@@ -1,11 +1,11 @@
 <ul class="nav nav-tabs nav-tabs-justified">
-    <li class="active"><a href="/ots/">Listar O.T.S.</a></li>
+    <li><a href="/ots/">Listar O.T.S.</a></li>
     <li><a href="/ots/agregar/">Agregar O.T.</a></li>
     <li><a href="/ots/modificar/">Modificar O.T.</a></li>
     <li><a href="/ots/ver/">Ver O.T.</a></li>
     <li><a href="#">O.T.S. Borradas</a></li>
     <li><a href="/ots/pendientes/">O.T.S. Pendientes</a></li>
-    <li><a href="/ots/vencidas/">O.T.S. Vencidas</a></li>
+    <li class="active"><a href="/ots/vencidas/">O.T.S. Vencidas</a></li>
 </ul>
 
 <div class="block-flat">

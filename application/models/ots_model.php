@@ -106,10 +106,23 @@ class Ots_model extends CI_Model {
     public function gets_vencidas() {
         $query = $this->db->query("SELECT *
                                     FROM
-                                        ots
+                                        ots o,
+                                        fabricas f
                                     WHERE 
-                                        fecha_necesidad <= CURDATE() AND
-                                        fecha_terminado IS NOT NULL");
+                                        o.idfabrica = f.idfabrica AND
+                                        o.fecha_necesidad <= CURDATE() AND
+                                        o.fecha_terminado IS NULL");
+        return $query->result_array();
+    }
+    
+    public function gets_pendientes() {
+        $query = $this->db->query("SELECT *
+                                    FROM
+                                        ots o,
+                                        fabricas f
+                                    WHERE 
+                                        o.idfabrica = f.idfabrica AND
+                                        o.fecha_terminado IS NULL");
         return $query->result_array();
     }
 }

@@ -7,7 +7,7 @@
         <div class="icon">
             <i class="fa fa-cogs"></i>
         </div>
-        <a class="details" href="#">
+        <a class="details" href="/ots/pendientes/">
             DETALLES
             <span>
                 <i class="fa fa-arrow-circle-right pull-right"></i>
@@ -26,7 +26,7 @@
         <div class="icon">
             <i class="fa fa-cogs"></i>
         </div>
-        <a class="details" href="#">
+        <a class="details" href="/ots/vencidas/">
             DETALLES
             <span>
                 <i class="fa fa-arrow-circle-right pull-right"></i>

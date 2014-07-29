@@ -106,7 +106,7 @@
             <?php } ?>
         </tbody>
         <thead>
-            <tr class="alert alert-info">
+            <tr class="alert alert-warning">
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td><strong>Subtotal</strong></td>
@@ -115,7 +115,7 @@
             </tr>
         </thead>
         <thead>
-            <tr class="alert alert-info">
+            <tr class="alert alert-warning">
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td><strong>IVA 21%</strong></td>
@@ -124,7 +124,7 @@
             </tr>
         </thead>
         <thead>
-            <tr class="alert alert-info">
+            <tr class="alert alert-warning">
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td><strong>Total</strong></td>

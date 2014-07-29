@@ -343,6 +343,7 @@ class Ots extends CI_Controller {
         $ot = $this->ots_model->get_where(array('idot' => $idot));
         $articulo = $this->articulos_model->get_where(array('idarticulo' => $ot['idarticulo']));
         $producto = $this->productos_model->get_where(array('idproducto' => $articulo['idproducto']));
+        $fabrica = $this->fabricas_model->get_where(array('idfabrica' => $ot['idfabrica']));
         
         $this->pdf = new Pdf_ot();
         $this->pdf->AddPage();
@@ -352,12 +353,18 @@ class Ots extends CI_Controller {
         $this->pdf->SetXY(10, 44);
         
         // Primer cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Fábrica"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, utf8_decode($fabrica['fabrica']), 1, 1);
+        $this->pdf->Ln();
+        
+        // Segundo cuadro
         $this->pdf->Cell(0, 6, utf8_decode("Orden de Trabajo"));
         $this->pdf->Ln();
         $this->pdf->MultiCell(0, 6, $ot['numero_ot'], 1, 1);
         $this->pdf->Ln();
         
-        // Segundo cuadro
+        // Tercer cuadro
         if($ot['idpedido'] != null) {
             $this->pdf->Cell(0, 6, utf8_decode("Número de Pedido"));
             $this->pdf->Ln();
@@ -365,13 +372,13 @@ class Ots extends CI_Controller {
             $this->pdf->Ln();
         }
         
-        // Tercer cuadro
+        // Cuarto cuadro
         $this->pdf->Cell(0, 6, utf8_decode("Plano"));
         $this->pdf->Ln();
         $this->pdf->MultiCell(0, 6, utf8_decode($articulo['plano']), 1, 1);
         $this->pdf->Ln();
         
-        // Cuarto cuadro
+        // Quito cuadro
         if($articulo['revision'] != '') {
             $this->pdf->Cell(0, 6, utf8_decode("Revisión"));
             $this->pdf->Ln();
@@ -379,7 +386,7 @@ class Ots extends CI_Controller {
             $this->pdf->Ln();
         }
         
-        // Quito cuadro
+        // Sexto cuadro
         if($articulo['posicion'] != '') {
             $this->pdf->Cell(0, 6, utf8_decode("Posición"));
             $this->pdf->Ln();
@@ -387,31 +394,31 @@ class Ots extends CI_Controller {
             $this->pdf->Ln();
         }
         
-        // Sexto cuadro
+        // Séptimo cuadro
         $this->pdf->Cell(0, 6, utf8_decode("Cantidad"));
         $this->pdf->Ln();
         $this->pdf->MultiCell(0, 6, utf8_decode($ot['cantidad']), 1, 1);
         $this->pdf->Ln();
         
-        // Séptimo cuadro
+        // Octavo cuadro
         $this->pdf->Cell(0, 6, utf8_decode("Producto"));
         $this->pdf->Ln();
         $this->pdf->MultiCell(0, 6, utf8_decode($producto['producto']), 1, 1);
         $this->pdf->Ln();
         
-        // Octavo cuadro
+        // Noveno cuadro
         $this->pdf->Cell(0, 6, utf8_decode("Artículo"));
         $this->pdf->Ln();
         $this->pdf->MultiCell(0, 6, utf8_decode($articulo['articulo']), 1, 1);
         $this->pdf->Ln();
         
-        // Noveno cuadro
+        // Décimo cuadro
         $this->pdf->Cell(0, 6, utf8_decode("Fecha de Pedido"));
         $this->pdf->Ln();
         $this->pdf->MultiCell(0, 6, strftime('%d/%m/%Y', strtotime($ot['timestamp'])), 1, 1);
         $this->pdf->Ln();
         
-        // Décimo cuadro
+        // Undécimo cuadro
         if($ot['fecha_necesidad'] != null) {
             $this->pdf->Cell(0, 6, utf8_decode("Fecha de Necesidad"));
             $this->pdf->Ln();
@@ -419,7 +426,7 @@ class Ots extends CI_Controller {
             $this->pdf->Ln();
         }
         
-        // Undécimo cuadro
+        // Duodécimo cuadro
         if($ot['observaciones'] != '') {
             $this->pdf->Cell(0, 6, utf8_decode("Observaciones"));
             $this->pdf->Ln();
@@ -428,6 +435,34 @@ class Ots extends CI_Controller {
         }
         
         $this->pdf->Output('Orden de Trabajo '.$ot['numero_ot'], 'I');
+    }
+    
+    public function vencidas() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
+        
+        $data['ots'] = $this->ots_model->gets_vencidas();
+        
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('ots/vencidas');
+        $this->load->view('layout/footer_datatable');
+    }
+    
+    public function pendientes() {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        $data['session'] = $session;
+        $data['segmento'] = $this->uri->segment(1);
+        
+        $data['ots'] = $this->ots_model->gets_pendientes();
+        
+        $this->load->view('layout/header_datatable', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('ots/pendientes');
+        $this->load->view('layout/footer_datatable');
     }
 }
 
