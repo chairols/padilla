@@ -108,7 +108,8 @@ class Ots_model extends CI_Model {
                                     FROM
                                         ots
                                     WHERE 
-                                        fecha_necesidad <= CURDATE()");
+                                        fecha_necesidad <= CURDATE() AND
+                                        fecha_terminado IS NOT NULL");
         return $query->result_array();
     }
 }

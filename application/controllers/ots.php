@@ -233,7 +233,7 @@ class Ots extends CI_Controller {
         echo '" name="ot" autofocus>';
     }
     
-    public function pdf($idot = null) {
+    private function pdf_anterior($idot = null) {
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
         if($idot == null) {
@@ -330,6 +330,102 @@ class Ots extends CI_Controller {
         $this->pdf->Cell(0, 0, 'Observaciones');
         $this->pdf->SetXY(10, 106);
         $this->pdf->MultiCell(190, 6, utf8_decode($ot['observaciones']), 1, 1);
+        
+        $this->pdf->Output('Orden de Trabajo '.$ot['numero_ot'], 'I');
+    }
+    
+    public function pdf($idot = null) {
+        $session = $this->session->all_userdata();
+        $this->r_session->check($session);
+        if($idot == null) {
+            redirect('/ots/', 'refresh');
+        }
+        $ot = $this->ots_model->get_where(array('idot' => $idot));
+        $articulo = $this->articulos_model->get_where(array('idarticulo' => $ot['idarticulo']));
+        $producto = $this->productos_model->get_where(array('idproducto' => $articulo['idproducto']));
+        
+        $this->pdf = new Pdf_ot();
+        $this->pdf->AddPage();
+        $this->pdf->AliasNbPages();
+        
+        $this->pdf->SetFont('Arial', '', '12');
+        $this->pdf->SetXY(10, 44);
+        
+        // Primer cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Orden de Trabajo"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, $ot['numero_ot'], 1, 1);
+        $this->pdf->Ln();
+        
+        // Segundo cuadro
+        if($ot['idpedido'] != null) {
+            $this->pdf->Cell(0, 6, utf8_decode("Número de Pedido"));
+            $this->pdf->Ln();
+            $this->pdf->MultiCell(0, 6, '', 1, 1);  //  Pendiente de Desarrollar
+            $this->pdf->Ln();
+        }
+        
+        // Tercer cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Plano"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, utf8_decode($articulo['plano']), 1, 1);
+        $this->pdf->Ln();
+        
+        // Cuarto cuadro
+        if($articulo['revision'] != '') {
+            $this->pdf->Cell(0, 6, utf8_decode("Revisión"));
+            $this->pdf->Ln();
+            $this->pdf->MultiCell(0, 6, utf8_decode($articulo['revision']), 1, 1);
+            $this->pdf->Ln();
+        }
+        
+        // Quito cuadro
+        if($articulo['posicion'] != '') {
+            $this->pdf->Cell(0, 6, utf8_decode("Posición"));
+            $this->pdf->Ln();
+            $this->pdf->MultiCell(0, 6, utf8_decode($articulo['posicion']), 1, 1);
+            $this->pdf->Ln();
+        }
+        
+        // Sexto cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Cantidad"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, utf8_decode($ot['cantidad']), 1, 1);
+        $this->pdf->Ln();
+        
+        // Séptimo cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Producto"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, utf8_decode($producto['producto']), 1, 1);
+        $this->pdf->Ln();
+        
+        // Octavo cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Artículo"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, utf8_decode($articulo['articulo']), 1, 1);
+        $this->pdf->Ln();
+        
+        // Noveno cuadro
+        $this->pdf->Cell(0, 6, utf8_decode("Fecha de Pedido"));
+        $this->pdf->Ln();
+        $this->pdf->MultiCell(0, 6, strftime('%d/%m/%Y', strtotime($ot['timestamp'])), 1, 1);
+        $this->pdf->Ln();
+        
+        // Décimo cuadro
+        if($ot['fecha_necesidad'] != null) {
+            $this->pdf->Cell(0, 6, utf8_decode("Fecha de Necesidad"));
+            $this->pdf->Ln();
+            $this->pdf->MultiCell(0, 6, strftime('%d/%m/%Y', strtotime($ot['fecha_necesidad'])), 1, 1);
+            $this->pdf->Ln();
+        }
+        
+        // Undécimo cuadro
+        if($ot['observaciones'] != '') {
+            $this->pdf->Cell(0, 6, utf8_decode("Observaciones"));
+            $this->pdf->Ln();
+            $this->pdf->MultiCell(0, 6, $ot['observaciones'], 1, 1);
+            $this->pdf->Ln();
+        }
         
         $this->pdf->Output('Orden de Trabajo '.$ot['numero_ot'], 'I');
     }
